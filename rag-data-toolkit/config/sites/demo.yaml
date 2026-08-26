@@ -1,0 +1,75 @@
+# 比赛当天主要改这个文件，不要先改公共代码。
+site:
+  name: 示例政府网站
+  domain: example.gov.cn
+
+crawler:
+  # 替换成真实栏目页；可配置多个栏目入口。
+  start_urls:
+    - https://www.sztv.com.cn/ysz/zx/tj/83853041.shtml
+  timeout: 15
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.8
+
+list:
+  # 列表中每条文章所在容器
+  item_selector: '.news-list li'
+  link_selector: 'a'
+  title_selector: 'a'
+  date_selector: '.date'
+
+pagination:
+  # 支持 next_link / url_template / page_parameter
+  type: next_link
+  next_selector: 'a.next'
+
+# 详情页优先按规则提取，失败后自动 fallback 到 Trafilatura。
+detail:
+  min_content_chars: 100
+  title:
+    selectors:
+      - 'h1'
+      - '.article-title'
+      - '.title'
+  content:
+    selectors:
+      - '.TRS_Editor'
+      - '.article-content'
+      - '.article-detail'
+      - '#content'
+  publish_time:
+    selectors:
+      - '.publish-time'
+      - '.date'
+      - '.time'
+  source:
+    selectors:
+      - '.source'
+      - '.article-source'
+
+metadata:
+  category: 新闻资讯
+  region: 深圳
+  max_tags: 5
+
+tag_rules:
+  人工智能:
+    - 人工智能
+    - AI
+    - 大模型
+    - 机器学习
+  机器人:
+    - 机器人
+    - 人形机器人
+    - 具身智能
+  政策:
+    - 政策
+    - 规划
+    - 办法
+    - 意见
+  融资:
+    - 融资
+    - 投资
+    - 基金

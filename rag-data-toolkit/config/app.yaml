@@ -1,0 +1,10 @@
+app:
+  max_pages: 20
+  max_docs: 100
+
+crawler:
+  timeout: 15
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.8
