@@ -1,0 +1,26 @@
+{
+  "mode": "playwright_click",
+  "pages": [
+    {
+      "page": 1,
+      "url": "https://www.sztv.com.cn/",
+      "selector_matches": 80,
+      "new_urls": 80,
+      "total_urls": 80,
+      "first_href": "https://www.sztv.com.cn/ysz/zx/tj/83853480.shtml"
+    },
+    {
+      "page": 2,
+      "url": "https://www.sztv.com.cn/",
+      "selector_matches": 80,
+      "new_urls": 20,
+      "total_urls": 100,
+      "first_href": "https://www.sztv.com.cn/ysz/zx/zw/83842899.shtml"
+    }
+  ],
+  "fallback_used": false,
+  "browser_source": "system_chrome",
+  "browser_executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "prefer_system_chrome": true,
+  "discovered_urls": 100
+}

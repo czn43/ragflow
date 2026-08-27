@@ -5,6 +5,14 @@ app:
 crawler:
   timeout: 15
   retries: 3
+  start_mode: auto
   delay:
     min: 0.2
     max: 0.8
+
+discovery:
+  # Selector 发现 0 条时，自动扫描当前页面全部 <a href>。
+  min_score: 3
+  # start_url 的 URL 得分达到该值，并且能抽取足够正文时，按“直接详情页”处理。
+  detail_url_score: 4
+  allow_external: false

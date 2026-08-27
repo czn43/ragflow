@@ -6,7 +6,8 @@ from utils.file_utils import dump_json, load_json, read_jsonl
 
 def build_report(root: Path) -> dict:
     docs = read_jsonl(root / 'data/05_validated/validated.jsonl')
+    audits = read_jsonl(root / 'data/_internal/record_audit.jsonl')
     stats = load_json(root / 'reports/pipeline_stats.json', {})
-    report = build_statistics(docs, stats)
+    report = build_statistics(docs, stats, audits)
     dump_json(root / 'reports/quality_report.json', report)
     return report

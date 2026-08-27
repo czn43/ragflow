@@ -10,6 +10,7 @@ class UrlItem:
     title: str | None = None
     publish_time: str | None = None
     source_page: str | None = None
+    source_name: str | None = None
 
 
 @dataclass

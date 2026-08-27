@@ -1,269 +1,124 @@
-# RAG Data Toolkit — 比赛 P0 第一版
+# RAG Data Toolkit v1.6
 
-> **Windows v1.2 note:** the batch files in this package use Windows CRLF line endings and ASCII-only console messages to avoid CMD encoding/line-ending issues.
+面向 RAG 知识库比赛的数据采集、清洗与标准化工具。v1.6 重点修复 SZTV 实战中暴露的两个问题：
 
+1. `requests` 抓到详情页壳页面时正文为空；现在会自动使用系统 Chrome + Playwright 渲染详情页兜底。
+2. 所有面向比赛/上传的数据文件统一为固定 8 字段 JSON，不再混入 `id/quality_score/issues` 等内部技术字段。
 
-这是一套面向“互联网数据采集 → 清洗 → 结构化 → RAGFlow 入库前准备”的轻量工具。
+## 标准 JSON 契约
 
-## 已实现 P0-1 → P0-16
-
-1. 统一 Document 数据模型
-2. HTTP Client（Session / Retry / Timeout / Delay）
-3. 列表页 + 自动分页
-4. 详情页 RAW HTML/JSON 留档
-5. CSS Selector 正文抽取 + Trafilatura fallback
-6. URL Normalize + URL 去重
-7. 正文 Unicode/空白标准化
-8. 配置驱动的尾部/行噪声清洗
-9. 日期标准化
-10. Content Hash 去重
-11. Validator（valid / warning / reject）
-12. Metadata Builder
-13. Quality Score
-14. Statistics
-15. `final.jsonl`
-16. `quality_report.json`
-
-额外包含：`final_preview.csv`、`actions.json`、`rejected.jsonl`、单元测试。
-
----
-
-## 1. 安装
-
-```bash
-python -m venv .venv
-```
-
-Windows：
-
-```bash
-.venv\Scripts\activate
-```
-
-安装依赖：
-
-```bash
-python -m pip install -r requirements.txt
-```
-
----
-
-## 2. 比赛当天优先改配置，不改公共代码
-
-复制：
-
-```text
-config/sites/demo.yaml
-```
-
-例如：
-
-```text
-config/sites/topic_a.yaml
-```
-
-重点配置：
-
-- `crawler.start_urls`
-- `list.item_selector`
-- `list.link_selector`
-- `list.date_selector`
-- `pagination`
-- `detail.title.selectors`
-- `detail.content.selectors`
-- `detail.publish_time.selectors`
-- `detail.source.selectors`
-- `metadata`
-- `tag_rules`
-
-拿到新网站后建议先抓 5 篇验证，再 50 篇，最后 100/3000 篇。
-
----
-
-## 3. 一键跑 100 篇
-
-```bash
-python main.py all --site config/sites/topic_a.yaml --max-pages 20 --max-docs 100
-```
-
-也可分阶段运行：
-
-```bash
-python main.py crawl --site config/sites/topic_a.yaml --max-pages 20 --max-docs 100
-python main.py process --site config/sites/topic_a.yaml
-python main.py analyze --site config/sites/topic_a.yaml
-python main.py export --site config/sites/topic_a.yaml
-```
-
----
-
-## 4. 产物
-
-### 原始 URL
-
-```text
-data/00_urls/urls.jsonl
-```
-
-### RAW HTML
-
-```text
-data/01_raw/html/{id}.html
-```
-
-### RAW 元数据
-
-```text
-data/01_raw/json/{id}.json
-```
-
-### 清洗后数据
-
-```text
-data/04_clean/cleaned.jsonl
-```
-
-### 验证后数据
-
-```text
-data/05_validated/validated.jsonl
-```
-
-### 最终 RAG 数据
-
-```text
-data/06_final/final.jsonl
-```
-
-### Excel 可查看预览
-
-```text
-data/06_final/final_preview.csv
-```
-
-### 数据质量报告
-
-```text
-reports/quality_report.json
-```
-
-### Pipeline 数量变化
-
-```text
-reports/pipeline_stats.json
-```
-
-### 清洗动作统计
-
-```text
-reports/actions.json
-```
-
-### 被拒绝/去重数据
-
-```text
-data/rejected/
-```
-
----
-
-## 5. final.jsonl 示例
+所有 RAW、抽取、去重、清洗、校验、最终数据都使用完全相同的字段：
 
 ```json
-{"id":"...","title":"某政策通知","content":"正文...","source_url":"https://...","source_name":"某政府网站","publish_time":"2026-08-01","category":"产业政策","tags":["政策"],"region":"深圳","document_type":"policy","char_count":2356,"quality_score":95,"quality_level":"HIGH","issues":[]}
+{
+  "sourceName": "深视新闻",
+  "sourceUrl": "https://www.sztv.com.cn/ysz/zx/zw/83852598.shtml",
+  "title": "白手起家的深圳年轻人，忙着改写全球富豪榜",
+  "contentText": "这里是正文……",
+  "category": "新闻资讯-新闻资讯",
+  "publishTime": "2026-08-25",
+  "attachments": [],
+  "attachmentCount": 0
+}
 ```
 
----
+用户可见的数据 JSON 不会再出现额外字段。质量分、问题标签、清洗动作、hash 等技术信息单独放在 `data/_internal/record_audit.jsonl` 和 `reports/` 下。
 
-## 6. quality_report.json 包含
-
-- 原始/最终/重复/异常数量
-- title/content/date/source/url 完整率
-- 正文长度 min/max/mean/P50/P90/P95
-- 长度区间分布
-- 来源 Top20、Top1/Top3 集中度
-- Category 分布
-- 年份分布
-- issue 污染/异常统计
-
----
-
-## 7. 新网站适配推荐工作流
-
-1. 浏览一个列表页和一个详情页。
-2. 把 HTML 交给 AI Coding，让它只分析 Selector。
-3. 修改 `config/sites/xxx.yaml`。
-4. `--max-docs 5` 试跑。
-5. 打开 RAW HTML 与 `validated.jsonl` 人工核对。
-6. `--max-docs 50` 再跑。
-7. 检查 `quality_report.json` 和 `rejected.jsonl`。
-8. 确认后再放大数据量。
-
----
-
-## 8. 运行测试
-
-推荐：
-
-```bash
-python -m pytest -q
-```
-
-Windows 也可以直接运行：
+## 目录含义
 
 ```text
-run_tests.bat
+data/
+├── 00_urls/                     列表页发现的文章 URL
+├── 01_raw/
+│   ├── html/                    最原始/渲染后的完整 HTML 证据
+│   ├── json/                    未清洗的标准 JSON，已经包含正文 contentText
+│   └── meta/                    HTTP、抓取时间、是否用 Chrome 渲染等内部元数据
+├── 02_extracted/extracted.jsonl 抽取阶段，标准 8 字段
+├── 03_dedup/dedup.jsonl         URL 去重后，标准 8 字段
+├── 04_clean/cleaned.jsonl       清洗后，标准 8 字段
+├── 05_validated/validated.jsonl 校验通过后，标准 8 字段
+├── 06_final/
+│   ├── final.jsonl              最终批量数据
+│   ├── final_preview.csv        人工抽查
+│   └── json/                    每篇文章一个独立 JSON 文件
+├── _internal/                   内部审计字段，不用于 RAG 上传
+└── rejected/                    被拒绝/去重的数据
 ```
 
-项目同时提供 `pytest.ini` 与 `tests/conftest.py`，因此直接执行 `pytest -q` 也能正确识别 `crawler`、`cleaner`、`extractor` 等本地包。
+## SZTV 正文抓取策略
 
----
-
-## 9. 当前第一版边界
-
-这是 P0 版本，因此暂未加入：
-
-- Playwright 动态页渲染
-- PDF/Word/Excel 附件解析
-- OCR
-- 近似重复 RapidFuzz
-- 多线程/异步高并发
-- HTML 可视化报告
-
-这些建议作为 P1 扩展，不影响第一版完成“100 篇普通政府/新闻网站数据全流程”。
-
-
----
-
-## 10. Windows 最省事的启动方式
-
-首次解压后直接双击：
+SZTV 首页新闻列表使用 Playwright JS 分页。详情页先尝试 `requests`：
 
 ```text
-setup_windows.bat
+requests 详情页
+    ↓
+精确 selector 能拿到 >=100 字正文？
+    ├─ 是 → 直接保存
+    └─ 否 → 系统 Chrome 渲染详情页
+                ↓
+          再次执行精确 selector
+                ↓
+          保存带正文的 RAW JSON + HTML
 ```
 
-它会：
+SZTV 当前精确正文优先级：
 
-1. 检查 Python；
-2. 创建 `.venv`；
-3. 升级虚拟环境 pip；
-4. 安装 `requirements.txt`；
-5. 使用虚拟环境 Python 执行 `python -m pytest -q`。
+```css
+#rich_media_wrp .js_content[data-module-name="article"] #editWrap
+#rich_media_wrp .js_content[data-module-name="article"]
+#rich_media_wrp .js_content
+#rich_media_wrp
+```
 
-测试通过后，复制并修改 `config/sites/demo.yaml`，再运行：
+评论区 `.comment-container` 不在这些节点内，因此正常情况下不会进入正文。对于通用抽取器兜底产生的页面噪声，清洗阶段还会移除“版权声明、相关推荐、评论、打开第一现场APP”等高置信噪声。
+
+## Windows 安装
+
+```powershell
+.\setup_windows.bat
+```
+
+优先使用电脑已有 Google Chrome；只有找不到系统 Chrome 时才提示安装 Playwright Chromium。
+
+## SZTV 100 篇实战
+
+```powershell
+.\run_sztv_100.bat
+```
+
+或者：
+
+```powershell
+.\.venv\Scripts\python.exe main.py all `
+  --site config\sites\sztv.yaml `
+  --max-pages 10 `
+  --max-docs 100 `
+  --clean-run
+```
+
+先重点检查：
 
 ```text
-run_100.bat config\sites\你的站点.yaml
+data\01_raw\json\*.json
 ```
 
-### 如果曾出现 `ModuleNotFoundError: No module named 'cleaner'`
+这里现在应该已经有 `contentText`。然后检查：
 
-本修正版已增加：
+```text
+data\04_clean\cleaned.jsonl
+data\06_final\final.jsonl
+data\06_final\json\*.json
+reports\pipeline_stats.json
+reports\quality_report.json
+```
 
-- `pytest.ini`：显式将项目根目录加入测试 Python Path；
-- `tests/conftest.py`：在测试收集前再次保证项目根目录进入 `sys.path`；
-- 所有业务目录均保留 `__init__.py`；
-- Windows BAT 不再依赖 `activate` 后再调用裸 `pytest.exe`，而是直接调用 `.venv\Scripts\python.exe -m pytest`。
+## 正常运行时的关键日志
 
-因此无需手工设置 `PYTHONPATH`。
+如果 requests 页面正文不足，会出现：
+
+```text
+detail playwright render url=https://...
+detail id=... chars=1582 render=True ...
+```
+
+说明系统 Chrome 已经作为详情页正文兜底生效。

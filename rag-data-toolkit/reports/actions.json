@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "rule": "LINE_NOISE",
+    "affectedCount": 4
+  },
+  {
+    "rule": "TRAILING_NOISE",
+    "affectedCount": 1
+  }
+]

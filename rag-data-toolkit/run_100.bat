@@ -1,39 +1,35 @@
 @echo off
-setlocal EnableExtensions
+setlocal
 cd /d "%~dp0"
 
-if "%~1"=="" (
-    echo Usage:
-    echo   run_100.bat config\sites\your_site.yaml
-    echo.
-    echo Example:
-    echo   run_100.bat config\sites\demo.yaml
-    pause
-    exit /b 1
-)
+echo ========================================
+echo RAG Data Toolkit v1.4 - 100 Document Run
+echo ========================================
+
+set "CFG=%~1"
+if "%CFG%"=="" set "CFG=config\sites\demo.yaml"
 
 if not exist ".venv\Scripts\python.exe" (
-    echo [ERROR] .venv not found. Run setup_windows.bat first.
+    echo ERROR: virtual environment not found.
+    echo Run setup_windows.bat first.
     pause
     exit /b 1
 )
 
-if not exist "%~1" (
-    echo [ERROR] Site config does not exist: %~1
+if not exist "%CFG%" (
+    echo ERROR: config file not found: %CFG%
     pause
     exit /b 1
 )
 
-echo ========================================
-echo RAG Data Toolkit - 100 Document Run
-echo Config: %~1
-echo ========================================
+echo Config: %CFG%
+echo Clean run: YES
 echo.
 
-".venv\Scripts\python.exe" main.py all --site "%~1" --max-pages 20 --max-docs 100
+".venv\Scripts\python.exe" main.py all --site "%CFG%" --max-pages 20 --max-docs 100 --clean-run
 if errorlevel 1 (
     echo.
-    echo [ERROR] Run failed. Check logs\app.log
+    echo ERROR: run failed. Check logs\app.log
     pause
     exit /b 1
 )
@@ -44,6 +40,6 @@ echo Run completed.
 echo Outputs:
 echo   data\06_final\final.jsonl
 echo   reports\quality_report.json
+echo   reports\discovery_diagnostics.json
 echo ========================================
 pause
-exit /b 0

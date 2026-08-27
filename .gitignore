@@ -36,3 +36,15 @@ htmlcov/
 *.log
 *.tmp
 .DS_Store  # macOS
+
+
+rag-data-toolkit/data/01_raw/html/*.html
+rag-data-toolkit/data/*
+# 1. 忽略 data 目录下的所有内容
+rag-data-toolkit/data/**
+
+# 2. 但把所有子目录重新放行，好让 git 能继续往里遍历
+!rag-data-toolkit/data/**/
+
+# 3. 在放行的目录里，单独保留 .gitkeep
+!rag-data-toolkit/data/**/.gitkeep

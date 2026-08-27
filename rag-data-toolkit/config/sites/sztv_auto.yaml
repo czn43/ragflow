@@ -1,0 +1,59 @@
+# 针对你刚才测试的 sztv.com.cn 做的“自动发现”示例。
+# 不依赖具体列表 CSS；首页 Selector 为空时自动扫描疑似文章链接。
+site:
+  name: 深圳广电网站
+  domain: sztv.com.cn
+
+crawler:
+  start_mode: auto
+  start_urls:
+    - https://www.sztv.com.cn/
+  timeout: 15
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.8
+
+# 故意不依赖列表 selector；让 v1.3 自动发现文章 URL。
+list: {}
+
+pagination:
+  type: none
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  title:
+    selectors:
+      - 'h1'
+      - '.article-title'
+      - '.title'
+  content:
+    selectors:
+      - '.TRS_Editor'
+      - '.article-content'
+      - '.article-detail'
+      - '#content'
+  publish_time:
+    selectors:
+      - '.publish-time'
+      - '.date'
+      - '.time'
+  source:
+    selectors:
+      - '.source'
+      - '.article-source'
+
+metadata:
+  category: 新闻资讯
+  region: 深圳
+  max_tags: 5
+
+tag_rules:
+  人工智能: [人工智能, AI, 大模型, 机器学习]
+  机器人: [机器人, 人形机器人, 具身智能]
+  政策: [政策, 规划, 办法, 意见]

@@ -1,10 +1,13 @@
 {
-  "raw": 0,
+  "raw": 100,
   "url_duplicate": 0,
-  "extract_failed": 0,
+  "extracted": 100,
+  "cleaned": 100,
   "empty_content": 0,
+  "short_content": 1,
   "content_duplicate": 0,
   "rejected": 0,
-  "warnings": 0,
-  "final": 0
+  "warnings": 6,
+  "validated": 100,
+  "final": 100
 }

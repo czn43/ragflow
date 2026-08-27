@@ -1,0 +1,97 @@
+# SZTV 第一现场：首页新闻卡片 + JavaScript 点击分页 + 精确详情页正文提取
+site:
+  name: 深圳广播电影电视集团-第一现场
+  domain: sztv.com.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://www.sztv.com.cn/
+  timeout: 20
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.6
+  user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+
+# 首页新闻列表区域：#newsGrid 下每个 a.news-card 本身就是文章链接
+list:
+  item_selector: "#newsGrid > a.news-card"
+  link_selector: "@self"
+  title_selector: ".news-card-title"
+  date_selector: ".news-card-time"
+  source_selector: ".news-card-source"
+
+# 页面使用 window.v3Index.goToPage(n)，没有普通 href 翻页。
+# Playwright 点击“下一页”，并等待第一条新闻 URL 变化。
+pagination:
+  type: playwright_click
+  next_selector: "#pagination .pagination-next-btn:not(.disabled)"
+  ready_selector: "#newsGrid > a.news-card"
+  loading_selector: "#loading-state"
+  wait_timeout_ms: 15000
+  navigation_timeout_ms: 30000
+  wait_until: domcontentloaded
+  headless: true
+  locale: zh-CN
+  browser:
+    prefer_system_chrome: true
+    # Optional: set an explicit Chrome path if auto-detection is not enough.
+    executable_path: null
+  # 正常情况下直接 click；若 click 失败，使用此函数兜底。
+  js_function: "window.v3Index.goToPage"
+
+# 详情页使用 requests 抓取，避免 Playwright 带来的额外开销。
+# 只选择文章内容节点，因此 comment-container 不会进入正文。
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  render_fallback_on_non_rule: true
+  render_wait_timeout_ms: 12000
+  render_navigation_timeout_ms: 30000
+  render_wait_until: domcontentloaded
+  render_settle_ms: 500
+  title:
+    selectors:
+      - "#title-name"
+      - "h1.rich_media_title"
+  content:
+    selectors:
+      - '#rich_media_wrp .js_content[data-module-name="article"] #editWrap'
+      - '#rich_media_wrp .js_content[data-module-name="article"]'
+      - "#rich_media_wrp .js_content"
+      - "#rich_media_wrp"
+  publish_time:
+    selectors:
+      - "#meta_content span"
+  source:
+    selectors:
+      - "#meta_content .rich_media_meta_nickname"
+
+metadata:
+  category: 新闻资讯-新闻资讯
+  region: 深圳
+  document_type: news
+  max_tags: 5
+
+tag_rules:
+  深圳:
+    - 深圳
+    - 深圳市
+  科技:
+    - 科技
+    - 人工智能
+    - AI
+    - 机器人
+    - 6G
+  政策:
+    - 政策
+    - 规划
+    - 办法
+    - 意见
+  民生:
+    - 教育
+    - 医疗
+    - 交通
+    - 住房
+    - 社保

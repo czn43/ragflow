@@ -1,60 +1,34 @@
-# TEST RESULTS — v1.1-fixed
+# RAG Data Toolkit v1.6 Test Results
 
-本版本针对 Windows 下测试收集阶段出现的本地包导入错误进行了修复：
-
-```text
-ModuleNotFoundError: No module named 'cleaner'
-ModuleNotFoundError: No module named 'crawler'
-ModuleNotFoundError: No module named 'extractor'
-```
-
-## 修复方式
-
-1. 新增 `pytest.ini`：`pythonpath = .`、`testpaths = tests`。
-2. 新增 `tests/conftest.py`：在 pytest 收集测试前把项目根目录加入 `sys.path`。
-3. `crawler/cleaner/extractor/analyzer/exporter/core/utils` 全部保留 `__init__.py`。
-4. `setup_windows.bat` 直接使用 `.venv\Scripts\python.exe -m pytest -q`。
-5. 新增 `run_tests.bat`。
-6. `run_100.bat` 增加环境及配置校验。
-
-## 打包前实际验证结果
-
-### 1. 直接运行 pytest
+## Automated tests
 
 ```text
-$ pytest -q
-.....                                                                    [100%]
-5 passed
+18 passed
 ```
 
-### 2. 使用 Python module 方式运行
+覆盖：
+
+- URL 标准化
+- 日期标准化
+- 噪声清洗与误删保护
+- SZTV `@self` 列表链接
+- SZTV JS 分页模拟
+- 系统 Chrome 优先策略
+- 标准 8 字段 schema
+- 详情页正文为空时 Playwright 渲染兜底
+- RAW JSON 必须包含正文 `contentText`
+- 清洗结果必须保持标准 8 字段
+- 评论/相关推荐不能进入最终正文
+
+## User supplied result diagnosis
+
+针对用户上传的 v1.5 结果检查：
 
 ```text
-$ python -m pytest -q
-.....                                                                    [100%]
-5 passed
+extracted.jsonl: 100 records
+EMPTY content:   99
+failed extract:  99
+final.jsonl:      1 record
 ```
 
-### 3. 从 tests 目录直接运行 pytest
-
-```text
-$ cd tests && pytest -q
-.....                                                                    [100%]
-5 passed
-```
-
-### 4. Python 语法编译检查
-
-```text
-python -m compileall -q analyzer cleaner core crawler exporter extractor utils main.py tests
-```
-
-通过。
-
-### 5. CLI 启动检查
-
-```text
-python main.py --help
-```
-
-成功输出 `crawl/process/analyze/export/all` 命令帮助。
+唯一保留记录仍包含版权声明/相关推荐/评论，因此 v1.5 本轮结果不适合直接入库。v1.6 的实现针对该问题进行了结构性修复。

@@ -1,29 +1,37 @@
-# 比赛当天主要改这个文件，不要先改公共代码。
+# v1.4: 比赛当天优先改 start_urls / site.name / site.domain。
+# Selector 可以继续配；即使 Selector 写错或缺失，程序也会自动发现疑似文章链接。
 site:
   name: 示例政府网站
   domain: example.gov.cn
 
 crawler:
-  # 替换成真实栏目页；可配置多个栏目入口。
+  # auto: 自动判断列表页/详情页；list/detail 可强制指定。
+  start_mode: auto
   start_urls:
-    - https://www.sztv.com.cn/ysz/zx/tj/83853041.shtml
+    - https://example.gov.cn/news/index.html
   timeout: 15
   retries: 3
   delay:
     min: 0.2
     max: 0.8
 
+# 有准确 DOM 时优先用 Selector；匹配 0 条会自动 fallback。
 list:
-  # 列表中每条文章所在容器
   item_selector: '.news-list li'
   link_selector: 'a'
   title_selector: 'a'
   date_selector: '.date'
 
 pagination:
-  # 支持 next_link / url_template / page_parameter
+  # next_link / url_template / page_parameter / playwright_click / none
   type: next_link
   next_selector: 'a.next'
+
+# 自动链接发现参数。通常不必修改。
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
 
 # 详情页优先按规则提取，失败后自动 fallback 到 Trafilatura。
 detail:
