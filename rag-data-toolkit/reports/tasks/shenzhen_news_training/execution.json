@@ -1,0 +1,47 @@
+{
+  "version": "1.8.0",
+  "taskId": "shenzhen_news_training",
+  "taskConfig": "config/tasks/shenzhen_news_training.yaml",
+  "execution": [
+    {
+      "siteId": "sztv",
+      "siteName": "深圳广电第一现场",
+      "status": "success",
+      "finalCount": 100,
+      "qualitySummary": {
+        "final_count": 100,
+        "raw": 100,
+        "url_duplicate": 0,
+        "extracted": 100,
+        "cleaned": 100,
+        "empty_content": 0,
+        "short_content": 1,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 6,
+        "validated": 100,
+        "final": 100
+      }
+    },
+    {
+      "siteId": "sznews",
+      "siteName": "深圳新闻网",
+      "status": "success",
+      "finalCount": 100,
+      "qualitySummary": {
+        "final_count": 100,
+        "raw": 100,
+        "url_duplicate": 0,
+        "extracted": 100,
+        "cleaned": 100,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 100,
+        "final": 100
+      }
+    }
+  ]
+}

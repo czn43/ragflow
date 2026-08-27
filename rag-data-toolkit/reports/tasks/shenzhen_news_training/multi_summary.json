@@ -1,0 +1,76 @@
+{
+  "version": "1.8.0",
+  "taskId": "shenzhen_news_training",
+  "taskName": "深圳新闻双来源练习",
+  "siteCountConfigured": 2,
+  "siteCountMerged": 2,
+  "sites": [
+    {
+      "siteId": "sztv",
+      "siteName": "深圳广电第一现场",
+      "priority": 20,
+      "status": "ready",
+      "finalCount": 100,
+      "qualitySummary": {
+        "final_count": 100,
+        "raw": 100,
+        "url_duplicate": 0,
+        "extracted": 100,
+        "cleaned": 100,
+        "empty_content": 0,
+        "short_content": 1,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 6,
+        "validated": 100,
+        "final": 100
+      },
+      "finalFile": "data/runs/shenzhen_news_training/sztv/06_final/final.jsonl"
+    },
+    {
+      "siteId": "sznews",
+      "siteName": "深圳新闻网",
+      "priority": 20,
+      "status": "ready",
+      "finalCount": 100,
+      "qualitySummary": {
+        "final_count": 100,
+        "raw": 100,
+        "url_duplicate": 0,
+        "extracted": 100,
+        "cleaned": 100,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 100,
+        "final": 100
+      },
+      "finalFile": "data/runs/shenzhen_news_training/sznews/06_final/final.jsonl"
+    }
+  ],
+  "merge": {
+    "dedupUrl": true,
+    "dedupContent": true,
+    "input_count": 200,
+    "final_count": 200,
+    "duplicate_count": 0,
+    "duplicate_reasons": {},
+    "per_site_input": {
+      "sztv": 100,
+      "sznews": 100
+    },
+    "per_site_kept_after_global_dedup": {
+      "sztv": 100,
+      "sznews": 100
+    }
+  },
+  "outputs": {
+    "combinedFinal": "data/final/shenzhen_news_training/combined_final.jsonl",
+    "splitJsonDir": "data/final/shenzhen_news_training/json",
+    "previewCsv": "data/final/shenzhen_news_training/final_preview.csv",
+    "globalDuplicates": "data/final/shenzhen_news_training/global_duplicates.jsonl",
+    "qualityReport": "reports/tasks/shenzhen_news_training/quality_report.json"
+  }
+}
