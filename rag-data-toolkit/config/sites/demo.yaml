@@ -23,7 +23,7 @@ list:
   date_selector: '.date'
 
 pagination:
-  # next_link / url_template / page_parameter / playwright_click / none
+  # next_link / url_template / page_parameter / playwright_click / playwright_load_more / none
   type: next_link
   next_selector: 'a.next'
 

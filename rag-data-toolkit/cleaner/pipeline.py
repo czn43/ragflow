@@ -11,6 +11,7 @@ from core.schema import coerce_standard_record, exact_standard_record, make_stan
 from crawler.url_normalizer import normalize_url
 from utils.file_utils import dump_json, load_json, write_jsonl
 from utils.hash_utils import make_content_hash, sha256_text
+from utils.workspace import data_path, report_path
 
 
 class ProcessingPipeline:
@@ -43,7 +44,7 @@ class ProcessingPipeline:
 
     def _load_raw(self) -> list[dict]:
         records = []
-        for p in sorted((self.root / 'data/01_raw/json').glob('*.json')):
+        for p in sorted(data_path(self.root, '01_raw', 'json').glob('*.json')):
             d = load_json(p)
             if d:
                 records.append(coerce_standard_record(d))
@@ -98,12 +99,12 @@ class ProcessingPipeline:
         # Stage 02: extracted but not cleaned. Exact standard schema.
         extracted = [exact_standard_record(x) for x in raw_records]
         self.stats['extracted'] = len(extracted)
-        write_jsonl(self.root / 'data/02_extracted/extracted.jsonl', extracted)
+        write_jsonl(data_path(self.root, '02_extracted', 'extracted.jsonl'), extracted)
 
         # Stage 03: URL dedup only; raw text is still unchanged.
         deduped, url_dups = self._dedup_url(extracted)
         self.stats['url_duplicate'] = len(url_dups)
-        write_jsonl(self.root / 'data/03_dedup/dedup.jsonl', [exact_standard_record(x) for x in deduped])
+        write_jsonl(data_path(self.root, '03_dedup', 'dedup.jsonl'), [exact_standard_record(x) for x in deduped])
 
         cleaned_records: list[dict] = []
         audits: dict[str, dict] = {}
@@ -166,7 +167,7 @@ class ProcessingPipeline:
             }
 
         self.stats['cleaned'] = len(cleaned_records)
-        write_jsonl(self.root / 'data/04_clean/cleaned.jsonl', [exact_standard_record(x) for x in cleaned_records])
+        write_jsonl(data_path(self.root, '04_clean', 'cleaned.jsonl'), [exact_standard_record(x) for x in cleaned_records])
 
         # Exact-content dedup happens after cleaning, because boilerplate differences
         # should not prevent duplicate detection.
@@ -189,12 +190,12 @@ class ProcessingPipeline:
         validated = [exact_standard_record(x) for x in content_ready]
         self.stats['validated'] = len(validated)
         self.stats['final'] = len(validated)
-        write_jsonl(self.root / 'data/05_validated/validated.jsonl', validated)
-        write_jsonl(self.root / 'data/_internal/record_audit.jsonl', list(audits.values()))
-        write_jsonl(self.root / 'data/rejected/rejected.jsonl', rejected)
+        write_jsonl(data_path(self.root, '05_validated', 'validated.jsonl'), validated)
+        write_jsonl(data_path(self.root, '_internal', 'record_audit.jsonl'), list(audits.values()))
+        write_jsonl(data_path(self.root, 'rejected', 'rejected.jsonl'), rejected)
 
-        dump_json(self.root / 'reports/pipeline_stats.json', self.stats)
-        dump_json(self.root / 'reports/actions.json', [
+        dump_json(report_path(self.root, 'pipeline_stats.json'), self.stats)
+        dump_json(report_path(self.root, 'actions.json'), [
             {'rule': k, 'affectedCount': v} for k, v in sorted(self.action_counts.items())
         ])
         self.logger.info('pipeline complete stats=%s', self.stats)

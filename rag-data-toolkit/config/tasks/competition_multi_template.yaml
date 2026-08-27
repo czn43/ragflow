@@ -1,0 +1,53 @@
+# v1.8 多数据源比赛任务模板
+# 用法：复制本文件，例如 config/tasks/low_altitude.yaml，然后按比赛主题填写。
+
+task:
+  id: competition_topic
+  name: 比赛主题名称
+  description: 多来源互联网数据采集、清洗、合并与知识库入库准备
+
+# 每个“不同页面模板”建议对应一个独立 site YAML。
+# 不同域名通常必然拆开；同域名若 DOM/分页方式不同，也建议拆开。
+sites:
+  # 示例：SZTV。比赛时不需要就删掉或 enabled: false。
+  - id: sztv
+    name: 深圳广电第一现场
+    config: config/sites/sztv.yaml
+    enabled: false
+    priority: 30
+    max_pages: 20
+    max_docs: 300
+    # 可在 task 层覆盖 site YAML，不必复制整个 site 文件。
+    overrides:
+      metadata:
+        category: 比赛主题-新闻动态
+
+  # 示例：政府网站。请先复制 demo.yaml 为新的站点配置。
+  - id: gov_source
+    name: 政府权威来源
+    config: config/sites/gov_source.yaml
+    enabled: false
+    priority: 10
+    max_pages: 30
+    max_docs: 1000
+    overrides:
+      metadata:
+        category: 比赛主题-政策法规
+
+  # 示例：行业协会/企业/高校等来源。
+  - id: industry_source
+    name: 行业来源
+    config: config/sites/industry_source.yaml
+    enabled: false
+    priority: 20
+    max_pages: 20
+    max_docs: 500
+    overrides:
+      metadata:
+        category: 比赛主题-行业动态
+
+merge:
+  # 跨站 URL 完全相同则只保留优先级更高的来源。
+  dedup_url: true
+  # 清洗后正文完全相同（典型转载）则只保留优先级更高的来源。
+  dedup_content: true

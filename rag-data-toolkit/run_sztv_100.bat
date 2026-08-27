@@ -3,7 +3,7 @@ setlocal EnableExtensions
 cd /d "%~dp0"
 
 echo ========================================
-echo RAG Data Toolkit v1.6 - SZTV 100 Run
+echo RAG Data Toolkit v1.8 - SZTV 100 Run
 echo ========================================
 
 if not exist ".venv\Scripts\python.exe" (

@@ -5,6 +5,7 @@ from pathlib import Path
 
 from core.schema import exact_standard_record
 from utils.file_utils import dump_json, read_jsonl, write_jsonl
+from utils.workspace import data_path
 
 
 def _safe_name(text: str, fallback: str) -> str:
@@ -14,10 +15,10 @@ def _safe_name(text: str, fallback: str) -> str:
 
 
 def export_final_jsonl(root: Path) -> int:
-    docs = [exact_standard_record(x) for x in read_jsonl(root / 'data/05_validated/validated.jsonl')]
-    write_jsonl(root / 'data/06_final/final.jsonl', docs)
+    docs = [exact_standard_record(x) for x in read_jsonl(data_path(root, '05_validated', 'validated.jsonl'))]
+    write_jsonl(data_path(root, '06_final', 'final.jsonl'), docs)
 
-    split_dir = root / 'data/06_final/json'
+    split_dir = data_path(root, '06_final', 'json')
     split_dir.mkdir(parents=True, exist_ok=True)
     for old in split_dir.glob('*.json'):
         old.unlink()

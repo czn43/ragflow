@@ -1,0 +1,117 @@
+# 深圳新闻网：首页/频道卡片列表 + “加载更多”按钮 + 隐藏分页链接兜底
+# 练习页面：https://www.sznews.com/node_31100.htm
+site:
+  name: 深圳新闻网
+  # 使用根域名后，www.sznews.com / wb.sznews.com / news.sznews.com 都视为同站来源。
+  domain: sznews.com
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://www.sznews.com/node_31100.htm
+  timeout: 20
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.6
+  user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+
+# 列表结构：每个 a.waterfall-item.card-list-item 本身就是详情链接。
+list:
+  item_selector: ".card-list.waterfall-list > a.waterfall-item.card-list-item"
+  link_selector: "@self"
+  title_selector: ".card-info h3"
+  # 有些卡片是“2026-08-27”，有些是“深圳特区报 2026-08-27”；日期解析器会提取日期。
+  date_selector: ".card-info span"
+  # 有 <b> 时可先拿列表来源；没有时以详情页来源为准。
+  source_selector: ".card-info span b"
+
+# 页面视觉上使用“加载更多”，点击后在当前 DOM 继续追加卡片。
+# v1.8 的 playwright_load_more 会等待 item_selector 数量增加后继续采集。
+# 同时页面隐藏了 ul.pages 的传统“下一页”href，因此配置 fallback，按钮失效时仍能继续。
+pagination:
+  type: playwright_load_more
+  load_more_selector: "a.btn-more"
+  ready_selector: ".card-list.waterfall-list > a.waterfall-item.card-list-item"
+  wait_timeout_ms: 15000
+  navigation_timeout_ms: 30000
+  wait_until: domcontentloaded
+  settle_ms: 400
+  headless: true
+  locale: zh-CN
+  fallback_next_link_selector: "ul.pages li.page-next a"
+  browser:
+    prefer_system_chrome: true
+    executable_path: null
+
+# 深圳新闻网/深圳晚报详情页。
+# 重点：正文只取 .article-content，故右侧“AI视界”、二维码、相关新闻不会混入正文。
+detail:
+  min_content_chars: 80
+  render_fallback: true
+  render_fallback_on_non_rule: false
+  render_wait_timeout_ms: 12000
+  render_navigation_timeout_ms: 30000
+  render_wait_until: domcontentloaded
+  render_settle_ms: 300
+
+  title:
+    selectors:
+      - ".article h1.article-tit"
+      - "h1.article-tit"
+      - "h1"
+
+  content:
+    selectors:
+      - ".article .article-content"
+      - ".article-content"
+      - ".article-txt .article-content"
+
+  publish_time:
+    selectors:
+      - ".article-source span"
+      - ".article-info .article-source span"
+    strip_prefixes:
+      - "发布时间："
+      - "发布时间:"
+
+  source:
+    selectors:
+      - ".article-source b"
+      - ".article-info .article-source b"
+    strip_prefixes:
+      - "来源："
+      - "来源:"
+
+metadata:
+  category: 新闻资讯-深圳新闻网
+  region: 深圳
+  document_type: news
+  max_tags: 5
+
+tag_rules:
+  深圳:
+    - 深圳
+    - 深圳市
+  人工智能:
+    - 人工智能
+    - AI
+    - 大模型
+    - 机器人
+    - 具身智能
+  科技创新:
+    - 科技
+    - 创新
+    - 科创
+    - 高新技术
+  产业:
+    - 产业
+    - 企业
+    - 制造业
+    - 会展
+  民生:
+    - 教育
+    - 医疗
+    - 交通
+    - 住房
+    - 社保

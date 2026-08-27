@@ -3,7 +3,7 @@ setlocal EnableExtensions
 cd /d "%~dp0"
 
 echo ========================================
-echo RAG Data Toolkit v1.6 - Windows Setup
+echo RAG Data Toolkit v1.8 - Windows Setup
 echo ========================================
 echo.
 
@@ -66,8 +66,9 @@ echo Browser policy:
 echo   1. Prefer installed system Chrome
 echo   2. Fall back to Playwright Chromium only when needed
 echo.
-echo SZTV quick start:
+echo Quick starts:
 echo   run_sztv_100.bat
+echo   run_multi.bat config\tasks\sztv_training.yaml
 echo.
 pause
 exit /b 0

@@ -3,11 +3,12 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 from utils.file_utils import read_jsonl
+from utils.workspace import data_path
 
 
 def export_preview_csv(root: Path) -> int:
-    docs = read_jsonl(root / 'data/05_validated/validated.jsonl')
-    path = root / 'data/06_final/final_preview.csv'
+    docs = read_jsonl(data_path(root, '05_validated', 'validated.jsonl'))
+    path = data_path(root, '06_final', 'final_preview.csv')
     path.parent.mkdir(parents=True, exist_ok=True)
     fields = ['sourceName', 'sourceUrl', 'title', 'category', 'publishTime', 'attachmentCount', 'contentChars']
     with path.open('w', encoding='utf-8-sig', newline='') as f:

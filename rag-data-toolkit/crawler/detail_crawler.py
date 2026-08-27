@@ -12,6 +12,7 @@ from crawler.url_normalizer import normalize_url
 from extractor.html_extractor import extract
 from utils.file_utils import dump_json
 from utils.hash_utils import sha256_text
+from utils.workspace import data_path, relative_data_path
 
 
 class DetailCrawler:
@@ -61,9 +62,9 @@ class DetailCrawler:
                     ext = rendered_ext
                     render_used = True
 
-        html_rel = f'data/01_raw/html/{doc_id}.html'
+        html_rel = relative_data_path(self.root, '01_raw', 'html', f'{doc_id}.html')
         if html:
-            html_path = self.root / html_rel
+            html_path = data_path(self.root, '01_raw', 'html', f'{doc_id}.html')
             html_path.parent.mkdir(parents=True, exist_ok=True)
             html_path.write_text(html, encoding='utf-8', errors='ignore')
 
@@ -88,7 +89,7 @@ class DetailCrawler:
             publish_time=publish_time,
             attachments=[],
         )
-        dump_json(self.root / f'data/01_raw/json/{doc_id}.json', standard_raw)
+        dump_json(data_path(self.root, '01_raw', 'json', f'{doc_id}.json'), standard_raw)
 
         raw = RawDocument(
             id=doc_id,
@@ -109,9 +110,9 @@ class DetailCrawler:
             'extraction_method': ext.extraction_method,
             'render_fallback_used': render_used,
             'raw_content_chars': len(raw_content.strip()),
-            'standard_json_path': f'data/01_raw/json/{doc_id}.json',
+            'standard_json_path': relative_data_path(self.root, '01_raw', 'json', f'{doc_id}.json'),
         })
-        dump_json(self.root / f'data/01_raw/meta/{doc_id}.json', meta)
+        dump_json(data_path(self.root, '01_raw', 'meta', f'{doc_id}.json'), meta)
         self.logger.info(
             'detail id=%s status=%s chars=%s render=%s url=%s',
             doc_id[:10], result.status_code, len(raw_content.strip()), render_used, normalized

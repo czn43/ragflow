@@ -1,0 +1,20 @@
+task:
+  id: sztv_training
+  name: SZTV 多数据源模式练习
+  description: 用单个真实站点演练 v1.8 task 工作流；后续可继续追加其他 site。
+
+sites:
+  - id: sztv
+    name: 深圳广电第一现场
+    config: config/sites/sztv.yaml
+    enabled: true
+    priority: 30
+    max_pages: 20
+    max_docs: 100
+    overrides:
+      metadata:
+        category: 新闻资讯-新闻资讯
+
+merge:
+  dedup_url: true
+  dedup_content: true

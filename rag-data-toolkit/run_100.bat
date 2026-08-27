@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0"
 
 echo ========================================
-echo RAG Data Toolkit v1.4 - 100 Document Run
+echo RAG Data Toolkit v1.8 - 100 Document Run
 echo ========================================
 
 set "CFG=%~1"

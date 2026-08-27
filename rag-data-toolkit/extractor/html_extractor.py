@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import json
+import re
+from typing import Any
+
 from bs4 import BeautifulSoup
+
 try:
     import trafilatura
 except ImportError:  # optional fallback; selector extraction still works
@@ -24,13 +28,55 @@ def _select_text(soup: BeautifulSoup, selectors: list[str] | str | None, sep: st
     return None
 
 
+def _postprocess_field(value: str | None, field_cfg: dict[str, Any] | None) -> str | None:
+    """Apply lightweight config-driven cleanup to extracted metadata fields.
+
+    This is intentionally small and transparent. It is useful for common news
+    templates that render metadata as strings such as ``来源：深圳晚报`` or
+    ``发布时间：2026-08-27``. The article body itself is NOT transformed here;
+    body cleaning belongs to the cleaning pipeline.
+
+    Supported field config keys:
+      - strip_prefixes: ["来源：", "来源:"]
+      - regex_extract: "来源[：:]\\s*(.+)"  (group 1 is used when present)
+    """
+    if value is None:
+        return None
+    text = value.strip()
+    field_cfg = field_cfg or {}
+
+    for prefix in field_cfg.get('strip_prefixes') or []:
+        p = str(prefix)
+        if text.startswith(p):
+            text = text[len(p):].strip()
+            break
+
+    pattern = field_cfg.get('regex_extract')
+    if pattern:
+        try:
+            m = re.search(str(pattern), text, flags=re.S)
+            if m:
+                text = (m.group(1) if m.lastindex else m.group(0)).strip()
+        except re.error:
+            # A malformed optional regex should not make an entire crawl fail.
+            pass
+
+    return text or None
+
+
+def _field_text(soup: BeautifulSoup, field_cfg: dict | None, sep: str) -> str | None:
+    field_cfg = field_cfg or {}
+    value = _select_text(soup, field_cfg.get('selectors'), sep=sep)
+    return _postprocess_field(value, field_cfg)
+
+
 def extract_by_rule(html: str, cfg: dict) -> ExtractResult:
     soup = BeautifulSoup(html, 'lxml')
     detail = cfg.get('detail', {})
-    title = _select_text(soup, detail.get('title', {}).get('selectors'), sep=' ')
-    content = _select_text(soup, detail.get('content', {}).get('selectors'), sep='\n')
-    publish_time = _select_text(soup, detail.get('publish_time', {}).get('selectors'), sep=' ')
-    source_name = _select_text(soup, detail.get('source', {}).get('selectors'), sep=' ')
+    title = _field_text(soup, detail.get('title'), sep=' ')
+    content = _select_text(soup, (detail.get('content') or {}).get('selectors'), sep='\n')
+    publish_time = _field_text(soup, detail.get('publish_time'), sep=' ')
+    source_name = _field_text(soup, detail.get('source'), sep=' ')
     min_chars = int(detail.get('min_content_chars', 100))
     if content and len(content.strip()) >= min_chars:
         return ExtractResult(title, content, publish_time, source_name, extraction_method='rule')
