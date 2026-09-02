@@ -1,0 +1,101 @@
+# 央视新闻 国际频道（world）：列表 + JavaScript“加载更多”分页 + 精确详情页正文提取
+#
+# 列表页 /world/ 的卡片由服务端渲染首屏（ul#newslist 内 20 条 li），
+# 点击“点击加载更多”后通过 JSONP 拉取下一页并以 append 方式追加 li（首条 URL 不变、卡片数量增加）。
+# 因此使用 playwright_load_more：Playwright 仅在 JS 分页时需要；详情页正文是服务端静态 HTML，
+# 用 requests 即可，无需对详情页启用 Playwright。
+site:
+  name: 央视新闻-国际新闻
+  domain: news.cctv.com
+
+crawler:
+  start_mode: auto
+  start_urls:
+    - https://news.cctv.com/world/?spm=C94212.P4YnMod9m2uD.EWZW7h07k3Vs.3
+  timeout: 20
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.6
+  user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+
+# 列表卡片：每条新闻是一个 li，内部多个 a 指向同一详情 URL。
+# 用 .title a 取链接与标题（比用默认 a 更精确，避免误取图片/摘要里的 a）。
+list:
+  item_selector: "ul#newslist > li"
+  link_selector: ".title a"
+  title_selector: ".text_con h3.title a"
+  date_selector: ".bottom .date"
+  # 列表卡片中不含来源，来源以详情页 .info a 为准（detail.source 优先级更高）。
+  source_selector: null
+
+# 分页为“加载更多”：点击 .xinwen18886_ind04 .more 后，JS(500ms 延时) 向 #newslist append 新 li，
+# 旧卡片保留在 DOM，因此等待“卡片数量增加”而非“首条 URL 改变”。
+pagination:
+  type: playwright_load_more
+  load_more_selector: ".xinwen18886_ind04 .more"
+  ready_selector: "ul#newslist > li"
+  wait_timeout_ms: 15000
+  navigation_timeout_ms: 30000
+  wait_until: domcontentloaded
+  settle_ms: 500
+  headless: true
+  locale: zh-CN
+  browser:
+    prefer_system_chrome: true
+    executable_path: null
+
+# 详情页正文 #content_area 已包含在服务端静态 HTML 中，requests 即可取得。
+# 仅在 requests 完全没有正文时才退回 Playwright 渲染（render_fallback_on_non_rule=false，
+# 即 rule 取到哪怕很少的内容也不触发 Playwright，避免无谓开销）。
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  render_fallback_on_non_rule: false
+  render_wait_timeout_ms: 12000
+  render_navigation_timeout_ms: 30000
+  render_wait_until: domcontentloaded
+  render_settle_ms: 500
+  title:
+    selectors:
+      - "#title_area h1"
+  content:
+    # 只取文章正文容器，排除导航 breadcrumb、.info 元信息、加载更多按钮、分享脚本、页脚版权等。
+    selectors:
+      - "#content_area"
+  publish_time:
+    # .info 文本形如 “来源：央视新闻  |  2026年09月01日 13:57:03”，.info1 形如 “央视新闻 | 2026年09月01日 13:57:03”
+    # regex_extract 仅抽取“年月日”部分，交给 date_cleaner 规范化为 YYYY-MM-DD。
+    selectors:
+      - ".info"
+      - ".info1"
+    regex_extract: '(\d{4}年\d{1,2}月\d{1,2}日)'
+  source:
+    # .info 内的 a 文本即来源，如“央视新闻”。
+    selectors:
+      - ".info a"
+      - ".info1"
+
+metadata:
+  category: 央视新闻-国际新闻
+  region: 全国
+  document_type: news
+  max_tags: 5
+
+tag_rules:
+  国际:
+    - 国际
+    - 外交
+    - 联合国
+    - 中美
+    - 俄乌
+  经济:
+    - 经济
+    - 国债
+    - 央行
+    - 股市
+  灾害:
+    - 泥石流
+    - 地震
+    - 援助
+    - 遇难
