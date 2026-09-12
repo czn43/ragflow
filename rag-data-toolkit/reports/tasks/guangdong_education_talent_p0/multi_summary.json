@@ -2,8 +2,8 @@
   "version": "1.9.1",
   "taskId": "guangdong_education_talent_p0",
   "taskName": "广东省教育与人才-P0首轮",
-  "siteCountConfigured": 12,
-  "siteCountMerged": 12,
+  "siteCountConfigured": 13,
+  "siteCountMerged": 13,
   "sites": [
     {
       "siteId": "gd_work_report_2026",
@@ -268,17 +268,39 @@
         "final": 102
       },
       "finalFile": "data/runs/guangdong_education_talent_p0/gd_edu_explain/06_final/final.jsonl"
+    },
+    {
+      "siteId": "gd_edu_development_plan",
+      "siteName": "广东教育发展规划",
+      "priority": 4,
+      "status": "ready",
+      "finalCount": 97,
+      "qualitySummary": {
+        "final_count": 97,
+        "raw": 97,
+        "url_duplicate": 0,
+        "extracted": 97,
+        "cleaned": 97,
+        "empty_content": 0,
+        "short_content": 1,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 1,
+        "validated": 97,
+        "final": 97
+      },
+      "finalFile": "data/runs/guangdong_education_talent_p0/gd_edu_development_plan/06_final/final.jsonl"
     }
   ],
   "merge": {
     "dedupUrl": true,
     "dedupContent": true,
-    "input_count": 502,
-    "final_count": 484,
-    "duplicate_count": 18,
+    "input_count": 599,
+    "final_count": 555,
+    "duplicate_count": 44,
     "duplicate_reasons": {
       "GLOBAL_DUPLICATE_URL": 1,
-      "GLOBAL_DUPLICATE_CONTENT": 17
+      "GLOBAL_DUPLICATE_CONTENT": 43
     },
     "per_site_input": {
       "gd_work_report_2026": 1,
@@ -291,6 +313,7 @@
       "gd_hrss_skill": 33,
       "gd_eea_gaokao": 119,
       "gd_edu_policy": 173,
+      "gd_edu_development_plan": 97,
       "gd_eea_gzxk": 27,
       "gd_edu_explain": 102
     },
@@ -305,6 +328,7 @@
       "gd_hrss_skill": 33,
       "gd_eea_gaokao": 119,
       "gd_edu_policy": 173,
+      "gd_edu_development_plan": 71,
       "gd_eea_gzxk": 27,
       "gd_edu_explain": 85
     }

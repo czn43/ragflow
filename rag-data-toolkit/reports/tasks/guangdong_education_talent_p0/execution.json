@@ -22,46 +22,6 @@
         "validated": 16,
         "final": 16
       }
-    },
-    {
-      "siteId": "gd_hrss_employment",
-      "siteName": "广东就业本省政策",
-      "status": "success",
-      "finalCount": 17,
-      "qualitySummary": {
-        "final_count": 17,
-        "raw": 17,
-        "url_duplicate": 0,
-        "extracted": 17,
-        "cleaned": 17,
-        "empty_content": 0,
-        "short_content": 1,
-        "content_duplicate": 0,
-        "rejected": 0,
-        "warnings": 1,
-        "validated": 17,
-        "final": 17
-      }
-    },
-    {
-      "siteId": "gd_hrss_policy_explain",
-      "siteName": "广东就业政策解读",
-      "status": "success",
-      "finalCount": 11,
-      "qualitySummary": {
-        "final_count": 11,
-        "raw": 11,
-        "url_duplicate": 0,
-        "extracted": 11,
-        "cleaned": 11,
-        "empty_content": 0,
-        "short_content": 0,
-        "content_duplicate": 0,
-        "rejected": 0,
-        "warnings": 0,
-        "validated": 11,
-        "final": 11
-      }
     }
   ]
 }

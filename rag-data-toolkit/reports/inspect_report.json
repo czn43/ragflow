@@ -1,23 +1,23 @@
 {
-  "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd",
+  "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/index.html",
   "http_status": 200,
-  "final_url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/",
+  "final_url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/index.html",
   "error": null,
-  "total_links": 92,
-  "same_domain_links": 30,
-  "effective_domain": "hrss.gd.gov.cn",
+  "total_links": 58,
+  "same_domain_links": 55,
+  "effective_domain": "edu.gd.gov.cn",
   "configured_item_selector": "ul.list li",
   "selector_error": null,
-  "selector_matches": 8,
+  "selector_matches": 20,
   "looks_like_detail_page": false,
   "detail_detection": {
     "reason": "forced_list_mode"
   },
-  "candidate_count": 14,
+  "candidate_count": 23,
   "top_candidates": [
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4116181.html",
-      "text": "《广东省人力资源和社会保障厅 广东省农业农村厅关于印发<农村电商产业园建设标准><农村电商基层示范站建设标准>的通知》政策解读",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4830960.html",
+      "text": "教育部办公厅关于进一步加强中小学日常考试管理的通知",
       "score": 10,
       "reasons": [
         "html",
@@ -27,8 +27,8 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4215051.html",
-      "text": "《广东省就业困难人员认定管理办法》政策解读",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4834916.html",
+      "text": "教育部关于印发《全国学前儿童学籍管理办法（试行）》的通知",
       "score": 10,
       "reasons": [
         "html",
@@ -38,8 +38,8 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4452213.html",
-      "text": "图解《强化人社支持举措助力民营经济发展壮大行动计划》",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4845434.html",
+      "text": "教育部等七部门关于深入推进中华优秀语言文化传承发展 提高全民语言文化素养的意见",
       "score": 10,
       "reasons": [
         "html",
@@ -49,8 +49,8 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4452214.html",
-      "text": "《广东省人力资源和社会保障厅 广东省财政厅关于明确高校毕业生“三支一扶”计划招募规模及“三支一扶”人员补贴标准的通知》政策解读",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4846419.html",
+      "text": "教育部关于做好2026年普通高校招生工作的通知",
       "score": 10,
       "reasons": [
         "html",
@@ -60,8 +60,8 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4720969.html",
-      "text": "《广东省人力资源和社会保障厅 广东省财政厅关于印发<广东省公益性岗位开发管理办法>的通知》政策解读",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4854831.html",
+      "text": "广东省教育厅关于进一步规范普通中小学招生入学工作的指导意见",
       "score": 10,
       "reasons": [
         "html",
@@ -71,8 +71,8 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4753657.html",
-      "text": "图解《关于做好稳就业工作的通知》",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4856618.html",
+      "text": "教育部关于深化职业教育教学关键要素改革的意见",
       "score": 10,
       "reasons": [
         "html",
@@ -82,8 +82,8 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4842365.html",
-      "text": "《关于印发<支持港澳青年在粤港澳大湾区就业创业的实施细则>的通知》的解读",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4875436.html",
+      "text": "教育部办公厅关于开展基础教育规范管理巩固年行动的通知",
       "score": 10,
       "reasons": [
         "html",
@@ -93,8 +93,8 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4893453.html",
-      "text": "图解《2026年广东省高校毕业生就业创业十大行动方案》",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4876365.html",
+      "text": "教育部办公厅关于印发《校园食品安全“十必须”》《学校食堂工作人员“十不准”》的通知",
       "score": 10,
       "reasons": [
         "html",
@@ -104,92 +104,164 @@
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297820.html",
-      "text": "联系我们",
-      "score": 9,
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4878377.html",
+      "text": "教育部办公厅关于开展中小学阳光招生专项行动（2026年）的通知",
+      "score": 10,
       "reasons": [
         "html",
         "numeric_id",
-        "positive:/content/"
+        "positive:/content/",
+        "article_like_anchor_text"
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297821.html",
-      "text": "交通指引",
-      "score": 9,
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4881146.html",
+      "text": "教育部等五部门关于印发《“人工智能+教育”行动计划》的通知",
+      "score": 10,
       "reasons": [
         "html",
         "numeric_id",
-        "positive:/content/"
+        "positive:/content/",
+        "article_like_anchor_text"
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297822.html",
-      "text": "版权说明",
-      "score": 9,
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4890624.html",
+      "text": "重磅发布！广东“十五五”《规划纲要》正式亮相",
+      "score": 10,
       "reasons": [
         "html",
         "numeric_id",
-        "positive:/content/"
+        "positive:/content/",
+        "article_like_anchor_text"
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297823.html",
-      "text": "网址域名",
-      "score": 9,
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4898650.html",
+      "text": "广东省人民政府办公厅关于印发《高等教育“冲一流、补短板、强特色”提升计划实施方案（2026—2030年）》的通知",
+      "score": 10,
       "reasons": [
         "html",
         "numeric_id",
-        "positive:/content/"
+        "positive:/content/",
+        "article_like_anchor_text"
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297824.html",
-      "text": "隐私保护",
-      "score": 9,
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4901126.html",
+      "text": "教育部办公厅等四部门关于印发《中小学基本办学条件底线要求》的通知",
+      "score": 10,
       "reasons": [
         "html",
         "numeric_id",
-        "positive:/content/"
+        "positive:/content/",
+        "article_like_anchor_text"
       ]
     },
     {
-      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297825.html",
-      "text": "法律责任",
-      "score": 9,
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4910931.html",
+      "text": "广东省教育厅关于印发《广东省学校学生食堂陪餐工作指引》的通知",
+      "score": 10,
       "reasons": [
         "html",
         "numeric_id",
-        "positive:/content/"
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4917894.html",
+      "text": "国务院关于印发《教育发展“十五五”规划》的通知",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4919386.html",
+      "text": "广东省教育厅等五部门关于印发《广东省民办学校财务清算办法》的通知",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4937950.html",
+      "text": "教育部办公厅关于印发《义务教育阶段科学教育“做中学”领航行动指南》的通知",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4938783.html",
+      "text": "广东省教育厅等五部门关于印发《广东省民办学校重大事项变更与退出办法》的通知",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4943630.html",
+      "text": "国务院关于《特殊教育发展提升“十五五”行动计划》的批复",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4948885.html",
+      "text": "教育部等七部门关于印发《特殊教育发展提升“十五五”行动计划》的通知",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
       ]
     }
   ],
   "candidate_validations": [
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4116181.html",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4830960.html",
       "score": 10,
       "http_status": 200,
       "extraction_method": "rule",
-      "title": "《广东省人力资源和社会保障厅 广东省农业农村厅关于印发<农村电商产业园建设标准><农村电商基层示范站建设标准>的通知》政策解读",
-      "content_chars": 1773,
+      "title": "教育部办公厅关于进一步加强中小学日常考试管理的通知",
+      "content_chars": 1782,
       "valid_article": true
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4215051.html",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4834916.html",
       "score": 10,
       "http_status": 200,
       "extraction_method": "rule",
-      "title": "《广东省就业困难人员认定管理办法》政策解读",
-      "content_chars": 1651,
+      "title": "教育部关于印发《全国学前儿童学籍管理办法（试行）》的通知",
+      "content_chars": 3368,
       "valid_article": true
     },
     {
-      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4452213.html",
+      "url": "https://edu.gd.gov.cn/zwgknew/jyfzgh/content/post_4845434.html",
       "score": 10,
       "http_status": 200,
-      "extraction_method": "trafilatura",
-      "title": "图解《强化人社支持举措助力民营经济发展壮大行动计划》",
-      "content_chars": 118,
+      "extraction_method": "rule",
+      "title": "教育部等七部门关于深入推进中华优秀语言文化传承发展 提高全民语言文化素养的意见",
+      "content_chars": 4978,
       "valid_article": true
     }
   ]
