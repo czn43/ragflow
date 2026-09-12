@@ -38,13 +38,29 @@ sites:
     max_pages: 1
     max_docs: 5
 
+  - id: gd_hrss_national_policy
+    name: 广东就业国家政策
+    config: config/sites/gd_hrss_national_policy.yaml
+    enabled: true
+    priority: 4
+    max_pages: 100
+    max_docs: 1000
+
   - id: gd_hrss_employment
     name: 广东就业本省政策
     config: config/sites/gd_hrss_employment.yaml
     enabled: true
     priority: 4
-    max_pages: 2
-    max_docs: 80
+    max_pages: 100
+    max_docs: 1000
+
+  - id: gd_hrss_policy_explain
+    name: 广东就业政策解读
+    config: config/sites/gd_hrss_policy_explain.yaml
+    enabled: true
+    priority: 4
+    max_pages: 100
+    max_docs: 1000
 
   - id: gd_hrss_skill
     name: 广东技能人才
