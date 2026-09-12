@@ -1,5 +1,6 @@
 # 广东省教育厅 - 教育政策法规
-# 首轮策略：列表页先用 auto discovery，避免在未知 DOM 下写错 selector；分页使用已确认的 index_N.html 结构。
+# 原入口 /zwgknew/jyzcfg/ 是 JS 跳转壳页（requests 只能拿到 1.4KB 无链接页面），
+# 改为直接进入其真实子栏目：规范性文件 + 地方教育政策法规。
 site:
   name: 广东省教育厅-教育政策法规
   domain: edu.gd.gov.cn
@@ -7,7 +8,8 @@ site:
 crawler:
   start_mode: list
   start_urls:
-    - https://edu.gd.gov.cn/zwgknew/jyzcfg/
+    - https://edu.gd.gov.cn/zwgknew/jyzcfg/gfxwj/index.html
+    - https://edu.gd.gov.cn/zwgknew/jyzcfg/dfjyzcfg/index.html
   timeout: 20
   retries: 3
   delay:
@@ -15,14 +17,16 @@ crawler:
     max: 0.6
 
 list:
-  item_selector: ""
-  link_selector: "a"
-  title_selector: ""
-  date_selector: ""
+  # 只取子栏目文章列表中的 /content/post_*.html 链接，避开栏目导航与页脚。
+  item_selector: "ul.list li"
+  link_selector: "a[href*='/content/post_']"
+  title_selector: "a"
+  date_selector: ".time"
 
+# 各子栏目分页为 index.html → index_2.html … index_N.html，用站点自带“下一页”链接跟进。
 pagination:
-  type: url_template
-  template: "https://edu.gd.gov.cn/zwgknew/jyzcfg/index_{page}.html"
+  type: next_link
+  next_selector: ".pages a.next"
 
 discovery:
   min_score: 3
@@ -34,28 +38,30 @@ detail:
   render_fallback: true
   title:
     selectors:
+      - ".con h3"
       - "h1"
       - ".article-title"
       - ".title"
   content:
     selectors:
+      - ".article"
       - ".TRS_Editor"
       - ".article-content"
       - ".zwxl-con"
       - "#content"
   publish_time:
     selectors:
+      - ".message .time"
       - ".time"
       - ".date"
       - ".publish-time"
-      - ".article-info"
-    regex_extract: "(?:时间|发布日期|发布时间)[：:]?\\s*(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
   source:
     selectors:
+      - ".message .from"
       - ".source"
       - ".article-source"
-      - ".article-info"
-    regex_extract: "(?:资料来源|来源)[：:]?\\s*([^\\s]+)"
+    regex_extract: "(?:文章来源|资料来源|来源)[：:]\\s*(.+)"
 
 metadata:
   category: 教育与人才-教育政策法规

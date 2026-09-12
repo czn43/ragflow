@@ -3,8 +3,9 @@ site:
   domain: hrss.gd.gov.cn
 crawler:
   start_mode: detail
+  # 原 gkmlpt 地址已 404；同文号 post_4725709 在人社厅 jyzl 栏目下仍可访问。
   start_urls:
-    - https://hrss.gd.gov.cn/gkmlpt/content/4/4725/post_4725709.html
+    - https://hrss.gd.gov.cn/jyzl/zcfg/bszc/content/post_4725709.html
   timeout: 20
   retries: 3
   delay: {min: 0.1, max: 0.3}
@@ -13,11 +14,16 @@ detail:
   min_content_chars: 300
   render_fallback: true
   title:
-    selectors: ["h1", ".article-title", ".title"]
+    selectors: ["h1.article_t", "h1", ".article-title", ".title"]
   content:
-    selectors: [".article-content", ".content", ".TRS_Editor", "#content"]
+    selectors: [".article_con", ".article", ".TRS_Editor", ".article-content", "#content"]
+  # 人社厅详情页把“信息来源/时间”放在同一信息条 .article_item 中，用正则各取所需。
   publish_time:
-    selectors: [".time", ".date", ".publish-time", ".article-info"]
+    selectors: [".article_item", ".time", ".date"]
+    regex_extract: "(?:时间)[：:]\\s*(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: [".article_item", ".source", ".article-source"]
+    regex_extract: "(?:信息来源|来源)[：:]\\s*([^\\s]+)"
 metadata:
   category: 教育与人才-高校毕业生就业创业
   region: 广东

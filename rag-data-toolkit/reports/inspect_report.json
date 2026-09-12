@@ -6,7 +6,7 @@
   "total_links": 21,
   "same_domain_links": 18,
   "effective_domain": "edu.gd.gov.cn",
-  "configured_item_selector": "",
+  "configured_item_selector": "a[href*='/content/post_']",
   "selector_error": null,
   "selector_matches": 0,
   "looks_like_detail_page": false,
@@ -62,37 +62,37 @@
       "url": "https://edu.gd.gov.cn/zwgknew/zcjd/content/post_4694726.html",
       "score": 10,
       "http_status": 200,
-      "extraction_method": "trafilatura",
-      "title": "广东中小学人工智能教育“211”落地框架解读_广东省教育厅网站",
-      "content_chars": 2808,
+      "extraction_method": "rule",
+      "title": "广东中小学人工智能教育“211”落地框架解读",
+      "content_chars": 2794,
       "valid_article": true
     },
     {
       "url": "http://edu.gd.gov.cn/qtnew/content/post_3339995.html",
       "score": 9,
       "http_status": 200,
-      "extraction_method": "trafilatura",
-      "title": "关于我们_广东省教育厅网站",
-      "content_chars": 195,
+      "extraction_method": "rule",
+      "title": "关于我们",
+      "content_chars": 190,
       "valid_article": true
     },
     {
       "url": "http://edu.gd.gov.cn/qtnew/content/post_3927067.html",
       "score": 9,
       "http_status": 200,
-      "extraction_method": "failed",
-      "title": null,
-      "content_chars": 0,
-      "valid_article": false
+      "extraction_method": "rule",
+      "title": "联系我们",
+      "content_chars": 188,
+      "valid_article": true
     },
     {
       "url": "https://edu.gd.gov.cn/qtnew/content/post_3339982.html",
       "score": 9,
       "http_status": 200,
-      "extraction_method": "failed",
-      "title": null,
-      "content_chars": 0,
-      "valid_article": false
+      "extraction_method": "rule",
+      "title": "网站地图",
+      "content_chars": 291,
+      "valid_article": true
     }
   ]
 }

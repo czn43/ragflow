@@ -1,43 +1,86 @@
 # 广东省教育厅 - 政策解读
+# 详情字段必须使用解析器实际读取的 detail.<field>.selectors 嵌套结构；
+# 旧的 title_selector/content_selector/date_selector 等扁平字段不会被读取，
+# 会导致规则抽取静默退化为通用抽取。
 site:
   name: 广东省教育厅-政策解读
   domain: edu.gd.gov.cn
+
 crawler:
   start_mode: list
   start_urls:
     - https://edu.gd.gov.cn/zwgknew/zcjd/
   timeout: 20
   retries: 3
-  delay: {min: 0.2, max: 0.6}
+  delay:
+    min: 0.2
+    max: 0.6
+
 list:
-  item_selector: ""
+  # 广东教育厅文章列表 URL: /zwgknew/zcjd/content/post_xxxxx.html
+  # 保持原入口：列表 selector 命中 0 条时走保守自动发现兜底。
+  item_selector: "a[href*='/content/post_']"
   link_selector: "a"
-  title_selector: ""
-  date_selector: ""
+  title_selector:
+    - ".title"
+    - "h1"
+  date_selector:
+    - ".time"
+    - ".date"
+
 pagination:
   type: url_template
-  template: "https://edu.gd.gov.cn/zwgknew/zcjd/index_{page}.html"
+  template: https://edu.gd.gov.cn/zwgknew/zcjd/index_{page}.html
+
 discovery:
   min_score: 3
   detail_url_score: 4
   allow_external: false
+
 detail:
+  # 最少正文长度
   min_content_chars: 80
-  policy_relation: true
-  attachment_extract: true
+  # 页面失败时使用浏览器渲染
   render_fallback: true
+  # 解读页 → 原文页 → 附件PDF 的关系解析与附件抽取由
+  # metadata.document_type=policy_explanation 驱动，无需 detail 下的扁平开关。
   title:
-    selectors: ["h1", ".article-title", ".title"]
+    selectors:
+      - ".con h3"
+      - "h1"
+      - ".article-title"
+      - ".title"
   content:
-    selectors: [".TRS_Editor", ".article-content", ".zwxl-con", "#content"]
+    selectors:
+      - ".article"
+      - ".TRS_Editor"
+      - ".article-content"
+      - ".zwxl-con"
+      - "#content"
   publish_time:
-    selectors: [".time", ".date", ".publish-time", ".article-info"]
-    regex_extract: "(?:时间|发布日期|发布时间)[：:]?\\s*(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+    selectors:
+      - ".message .time"
+      - ".time"
+      - ".date"
+      - ".publish-time"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
   source:
-    selectors: [".source", ".article-source", ".article-info"]
-    regex_extract: "(?:资料来源|来源)[：:]?\\s*([^\\s]+)"
+    selectors:
+      - ".message .from"
+      - ".source"
+      - ".article-source"
+    regex_extract: "(?:文章来源|资料来源|来源)[：:]\\s*(.+)"
+
 metadata:
   category: 教育与人才-政策解读
   region: 广东
   document_type: policy_explanation
   max_tags: 6
+
+filter:
+  ignore_titles:
+    - 关于我们
+    - 联系我们
+    - 网站地图
+    - 网站声明
+    - 版权声明
