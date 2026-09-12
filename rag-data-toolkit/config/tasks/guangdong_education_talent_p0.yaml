@@ -102,6 +102,14 @@ sites:
     max_pages: 5
     max_docs: 150
 
+  - id: gd_edu_development_plan
+    name: 广东教育发展规划
+    config: config/sites/gd_edu_development_plan.yaml
+    enabled: true
+    priority: 4
+    max_pages: 6
+    max_docs: 120
+
 merge:
   dedup_url: true
   dedup_content: true

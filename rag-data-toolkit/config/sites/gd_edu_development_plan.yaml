@@ -1,0 +1,75 @@
+# 广东省教育厅 - 教育发展规划
+# 与 jyzcfg/zcjd 同模板：列表 ul.list li + .time，详情 .con h3 / .message .time / .article。
+site:
+  name: 广东省教育厅-教育发展规划
+  domain: edu.gd.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://edu.gd.gov.cn/zwgknew/jyfzgh/index.html
+  timeout: 20
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.6
+
+list:
+  # 只取文章列表中的 /content/post_*.html 链接，避开栏目导航与页脚。
+  item_selector: "ul.list li"
+  link_selector: "a[href*='/content/post_']"
+  title_selector: "a"
+  date_selector: ".time"
+
+# 分页为 index.html → index_2.html … index_5.html，用站点自带“下一页”链接跟进。
+pagination:
+  type: next_link
+  next_selector: ".pages a.next"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - ".con h3"
+      - "h1"
+      - ".article-title"
+      - ".title"
+  content:
+    selectors:
+      - ".article"
+      - ".TRS_Editor"
+      - ".article-content"
+      - ".zwxl-con"
+      - "#content"
+  publish_time:
+    selectors:
+      - ".message .time"
+      - ".time"
+      - ".date"
+      - ".publish-time"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - ".message .from"
+      - ".source"
+      - ".article-source"
+    regex_extract: "(?:文章来源|资料来源|来源)[：:]\\s*(.+)"
+
+metadata:
+  category: 教育与人才-教育发展规划
+  region: 广东
+  document_type: education_policy
+  max_tags: 6
+
+tag_rules:
+  基础教育: [学前教育, 义务教育, 普通高中, 基础教育]
+  职业教育: [职业教育, 中职, 高职, 普职融通]
+  高等教育: [高等教育, 高校, 本科, 研究生]
+  教师队伍: [教师, 师资, 职称]
+  学生资助: [资助, 助学金, 助学贷款, 奖学金]

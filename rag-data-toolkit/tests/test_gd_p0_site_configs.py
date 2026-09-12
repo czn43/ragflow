@@ -97,3 +97,26 @@ def test_extractor_reads_nested_detail_fields():
     assert result.title == '标题'
     assert result.publish_time == '2026-07-07'
     assert '正文内容' in (result.content or '')
+
+
+def test_edu_development_plan_config_is_parser_readable():
+    cfg = load_site('gd_edu_development_plan.yaml')
+    starts = cfg.get('crawler', {}).get('start_urls') or []
+    assert starts and '/zwgknew/jyfzgh/' in starts[0]
+    list_cfg = cfg.get('list', {})
+    assert list_cfg.get('item_selector'), 'development plan must configure a list item selector'
+    assert 'post_' in str(list_cfg.get('link_selector', '')), 'link selector must target /content/post_*.html'
+    assert cfg.get('pagination') == {'type': 'next_link', 'next_selector': '.pages a.next'}
+    for field in ('title', 'content', 'publish_time', 'source'):
+        detail_selectors(cfg, field)
+
+
+def test_p0_task_registers_development_plan_once():
+    task_path = CONFIG_DIR.parent / 'tasks' / 'guangdong_education_talent_p0.yaml'
+    with task_path.open(encoding='utf-8') as f:
+        task = yaml.safe_load(f) or {}
+    entries = [e for e in task.get('sites', []) if e.get('id') == 'gd_edu_development_plan']
+    assert len(entries) == 1, 'development plan must be registered exactly once'
+    assert entries[0]['config'] == 'config/sites/gd_edu_development_plan.yaml'
+    assert entries[0]['enabled'] is True
+
