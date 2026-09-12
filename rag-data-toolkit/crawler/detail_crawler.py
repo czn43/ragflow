@@ -82,8 +82,19 @@ class DetailCrawler:
         source_name = (ext.source_name or item.source_name or self.cfg.get('site', {}).get('name') or '').strip()
         category = str(self.cfg.get('metadata', {}).get('category') or '')
 
-        # Policy explanation enhancement: follow original policy and PDF attachments
+        # Direct PDF attachments are collected for every policy document, not only
+        # for explanations. URLs are deduplicated so a PDF linked twice is kept once.
         attachments = []
+        attachment_urls = set()
+        for direct_pdf in find_pdf_attachments(html, normalized):
+            pdf_url = direct_pdf.get('url')
+            if not pdf_url or pdf_url in attachment_urls:
+                continue
+            direct_pdf['contentText'] = extract_pdf_text(pdf_url)
+            attachments.append(direct_pdf)
+            attachment_urls.add(pdf_url)
+
+        # Policy explanation enhancement: follow original policy and PDF attachments
         relations = []
         if self.cfg.get('metadata', {}).get('document_type') == 'policy_explanation':
             visited = {normalized}
@@ -98,8 +109,12 @@ class DetailCrawler:
                         rel_ext = extract(rr.text, self.cfg)
                         rel_pdf = find_pdf_attachments(rr.text, link)
                         for item_pdf in rel_pdf:
-                            item_pdf['contentText'] = extract_pdf_text(item_pdf['url'])
+                            pdf_url = item_pdf.get('url')
+                            if not pdf_url or pdf_url in attachment_urls:
+                                continue
+                            item_pdf['contentText'] = extract_pdf_text(pdf_url)
                             attachments.append(item_pdf)
+                            attachment_urls.add(pdf_url)
                         if len((rel_ext.content or '').strip()) > len(raw_content.strip()):
                             raw_content = (raw_content + '\n\n' + rel_ext.content).strip()
                         relations.append({'type':'original_policy','url':link})
