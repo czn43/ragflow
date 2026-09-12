@@ -1,23 +1,23 @@
 {
-  "url": "https://edu.gd.gov.cn/zwgknew/jyzcfg/dfjyzcfg/content/post_4694716.html",
+  "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd",
   "http_status": 200,
-  "final_url": "https://edu.gd.gov.cn/zwgknew/jyzcfg/dfjyzcfg/content/post_4694716.html",
+  "final_url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/",
   "error": null,
-  "total_links": 21,
-  "same_domain_links": 18,
-  "effective_domain": "edu.gd.gov.cn",
-  "configured_item_selector": "a[href*='/content/post_']",
+  "total_links": 92,
+  "same_domain_links": 30,
+  "effective_domain": "hrss.gd.gov.cn",
+  "configured_item_selector": "ul.list li",
   "selector_error": null,
-  "selector_matches": 0,
+  "selector_matches": 8,
   "looks_like_detail_page": false,
   "detail_detection": {
     "reason": "forced_list_mode"
   },
-  "candidate_count": 4,
+  "candidate_count": 14,
   "top_candidates": [
     {
-      "url": "https://edu.gd.gov.cn/zwgknew/zcjd/content/post_4694726.html",
-      "text": "广东中小学人工智能教育“211”落地框架解读",
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4116181.html",
+      "text": "《广东省人力资源和社会保障厅 广东省农业农村厅关于印发<农村电商产业园建设标准><农村电商基层示范站建设标准>的通知》政策解读",
       "score": 10,
       "reasons": [
         "html",
@@ -27,17 +27,84 @@
       ]
     },
     {
-      "url": "http://edu.gd.gov.cn/qtnew/content/post_3339995.html",
-      "text": "关于我们",
-      "score": 9,
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4215051.html",
+      "text": "《广东省就业困难人员认定管理办法》政策解读",
+      "score": 10,
       "reasons": [
         "html",
         "numeric_id",
-        "positive:/content/"
+        "positive:/content/",
+        "article_like_anchor_text"
       ]
     },
     {
-      "url": "http://edu.gd.gov.cn/qtnew/content/post_3927067.html",
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4452213.html",
+      "text": "图解《强化人社支持举措助力民营经济发展壮大行动计划》",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4452214.html",
+      "text": "《广东省人力资源和社会保障厅 广东省财政厅关于明确高校毕业生“三支一扶”计划招募规模及“三支一扶”人员补贴标准的通知》政策解读",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4720969.html",
+      "text": "《广东省人力资源和社会保障厅 广东省财政厅关于印发<广东省公益性岗位开发管理办法>的通知》政策解读",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4753657.html",
+      "text": "图解《关于做好稳就业工作的通知》",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4842365.html",
+      "text": "《关于印发<支持港澳青年在粤港澳大湾区就业创业的实施细则>的通知》的解读",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4893453.html",
+      "text": "图解《2026年广东省高校毕业生就业创业十大行动方案》",
+      "score": 10,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/",
+        "article_like_anchor_text"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297820.html",
       "text": "联系我们",
       "score": 9,
       "reasons": [
@@ -47,8 +114,48 @@
       ]
     },
     {
-      "url": "https://edu.gd.gov.cn/qtnew/content/post_3339982.html",
-      "text": "网站地图",
+      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297821.html",
+      "text": "交通指引",
+      "score": 9,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297822.html",
+      "text": "版权说明",
+      "score": 9,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297823.html",
+      "text": "网址域名",
+      "score": 9,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297824.html",
+      "text": "隐私保护",
+      "score": 9,
+      "reasons": [
+        "html",
+        "numeric_id",
+        "positive:/content/"
+      ]
+    },
+    {
+      "url": "https://hrss.gd.gov.cn/wzdh/content/post_1297825.html",
+      "text": "法律责任",
       "score": 9,
       "reasons": [
         "html",
@@ -59,39 +166,30 @@
   ],
   "candidate_validations": [
     {
-      "url": "https://edu.gd.gov.cn/zwgknew/zcjd/content/post_4694726.html",
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4116181.html",
       "score": 10,
       "http_status": 200,
       "extraction_method": "rule",
-      "title": "广东中小学人工智能教育“211”落地框架解读",
-      "content_chars": 2794,
+      "title": "《广东省人力资源和社会保障厅 广东省农业农村厅关于印发<农村电商产业园建设标准><农村电商基层示范站建设标准>的通知》政策解读",
+      "content_chars": 1773,
       "valid_article": true
     },
     {
-      "url": "http://edu.gd.gov.cn/qtnew/content/post_3339995.html",
-      "score": 9,
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4215051.html",
+      "score": 10,
       "http_status": 200,
       "extraction_method": "rule",
-      "title": "关于我们",
-      "content_chars": 190,
+      "title": "《广东省就业困难人员认定管理办法》政策解读",
+      "content_chars": 1651,
       "valid_article": true
     },
     {
-      "url": "http://edu.gd.gov.cn/qtnew/content/post_3927067.html",
-      "score": 9,
+      "url": "https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/content/post_4452213.html",
+      "score": 10,
       "http_status": 200,
-      "extraction_method": "rule",
-      "title": "联系我们",
-      "content_chars": 188,
-      "valid_article": true
-    },
-    {
-      "url": "https://edu.gd.gov.cn/qtnew/content/post_3339982.html",
-      "score": 9,
-      "http_status": 200,
-      "extraction_method": "rule",
-      "title": "网站地图",
-      "content_chars": 291,
+      "extraction_method": "trafilatura",
+      "title": "图解《强化人社支持举措助力民营经济发展壮大行动计划》",
+      "content_chars": 118,
       "valid_article": true
     }
   ]

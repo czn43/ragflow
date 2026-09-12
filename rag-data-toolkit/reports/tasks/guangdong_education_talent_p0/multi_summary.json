@@ -2,8 +2,8 @@
   "version": "1.9.1",
   "taskId": "guangdong_education_talent_p0",
   "taskName": "广东省教育与人才-P0首轮",
-  "siteCountConfigured": 10,
-  "siteCountMerged": 10,
+  "siteCountConfigured": 12,
+  "siteCountMerged": 12,
   "sites": [
     {
       "siteId": "gd_work_report_2026",
@@ -94,26 +94,70 @@
       "finalFile": "data/runs/guangdong_education_talent_p0/gd_student_aid/06_final/final.jsonl"
     },
     {
+      "siteId": "gd_hrss_national_policy",
+      "siteName": "广东就业国家政策",
+      "priority": 4,
+      "status": "ready",
+      "finalCount": 16,
+      "qualitySummary": {
+        "final_count": 16,
+        "raw": 16,
+        "url_duplicate": 0,
+        "extracted": 16,
+        "cleaned": 16,
+        "empty_content": 0,
+        "short_content": 1,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 1,
+        "validated": 16,
+        "final": 16
+      },
+      "finalFile": "data/runs/guangdong_education_talent_p0/gd_hrss_national_policy/06_final/final.jsonl"
+    },
+    {
       "siteId": "gd_hrss_employment",
       "siteName": "广东就业本省政策",
       "priority": 4,
       "status": "ready",
-      "finalCount": 22,
+      "finalCount": 17,
       "qualitySummary": {
-        "final_count": 22,
-        "raw": 23,
+        "final_count": 17,
+        "raw": 17,
         "url_duplicate": 0,
-        "extracted": 23,
-        "cleaned": 23,
-        "empty_content": 1,
+        "extracted": 17,
+        "cleaned": 17,
+        "empty_content": 0,
         "short_content": 1,
         "content_duplicate": 0,
-        "rejected": 1,
+        "rejected": 0,
         "warnings": 1,
-        "validated": 22,
-        "final": 22
+        "validated": 17,
+        "final": 17
       },
       "finalFile": "data/runs/guangdong_education_talent_p0/gd_hrss_employment/06_final/final.jsonl"
+    },
+    {
+      "siteId": "gd_hrss_policy_explain",
+      "siteName": "广东就业政策解读",
+      "priority": 4,
+      "status": "ready",
+      "finalCount": 11,
+      "qualitySummary": {
+        "final_count": 11,
+        "raw": 11,
+        "url_duplicate": 0,
+        "extracted": 11,
+        "cleaned": 11,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 11,
+        "final": 11
+      },
+      "finalFile": "data/runs/guangdong_education_talent_p0/gd_hrss_policy_explain/06_final/final.jsonl"
     },
     {
       "siteId": "gd_hrss_skill",
@@ -229,11 +273,11 @@
   "merge": {
     "dedupUrl": true,
     "dedupContent": true,
-    "input_count": 480,
-    "final_count": 457,
-    "duplicate_count": 23,
+    "input_count": 502,
+    "final_count": 484,
+    "duplicate_count": 18,
     "duplicate_reasons": {
-      "GLOBAL_DUPLICATE_URL": 6,
+      "GLOBAL_DUPLICATE_URL": 1,
       "GLOBAL_DUPLICATE_CONTENT": 17
     },
     "per_site_input": {
@@ -241,7 +285,9 @@
       "gd_talent_card": 1,
       "gd_graduate_policy": 1,
       "gd_student_aid": 1,
-      "gd_hrss_employment": 22,
+      "gd_hrss_national_policy": 16,
+      "gd_hrss_employment": 17,
+      "gd_hrss_policy_explain": 11,
       "gd_hrss_skill": 33,
       "gd_eea_gaokao": 119,
       "gd_edu_policy": 173,
@@ -253,8 +299,10 @@
       "gd_talent_card": 1,
       "gd_graduate_policy": 1,
       "gd_student_aid": 1,
-      "gd_hrss_employment": 21,
-      "gd_hrss_skill": 28,
+      "gd_hrss_national_policy": 16,
+      "gd_hrss_employment": 16,
+      "gd_hrss_policy_explain": 11,
+      "gd_hrss_skill": 33,
       "gd_eea_gaokao": 119,
       "gd_edu_policy": 173,
       "gd_eea_gzxk": 27,
