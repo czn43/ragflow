@@ -1,0 +1,72 @@
+# 人力资源和社会保障部 - 就业 - 高校毕业生 / 就业综合（政策文件）
+# 说明：mohrss.gov.cn 对纯 requests 返回 ~980B JS 反爬挑战（EO_Bot），
+# 列表页必须用 playwright_click；详情页靠 render_fallback 渲染后抽取。
+site:
+  name: 人力资源和社会保障部-高校毕业生就业
+  domain: mohrss.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://www.mohrss.gov.cn/SYrlzyhshbzb/jiuye/zcwj/gaoxiaobiyesheng/
+    # 就业综合栏目补充青年就业、就业服务、就业见习等 2025-2026 行动。
+    - https://www.mohrss.gov.cn/SYrlzyhshbzb/jiuye/zcwj/JYzonghe/
+  timeout: 25
+  retries: 3
+  delay: {min: 0.3, max: 0.8}
+
+list:
+  item_selector: div.organGeneralNewListConType
+  link_selector: a
+  title_selector: a
+  date_selector: div.organGeneralNewListTxtConTime
+
+pagination:
+  type: playwright_click
+  next_selector: img.pageNextBtn
+  wait_timeout_ms: 20000
+  settle_ms: 500
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  # A/B 模板混排：错误模板选择器最多白等，压到 3.5s 提速。
+  render_wait_timeout_ms: 3500
+  title:
+    selectors: [div.insMainConTitle_b, div.artT, h1, .article-title, .content_title]
+  content:
+    # 本栏目详情页以模板A（#insMainConTxt，SYrlzyhshbzb 业务栏目）为主，
+    # 故 A 选择器放前面；否则 DetailRenderer 每篇会白等 2×12s（实测 27s/篇）。
+    selectors:
+      - "#insMainConTxt .TRS_Editor"
+      - "#insMainConTxt"
+      - "div.art_det div.clearboth"
+      - "div.art_det"
+      - ".TRS_Editor"
+      - ".article-content"
+  publish_time:
+    selectors: [div.insMainConTitle_c, div.art_infos span, "div.info_table ul li:nth-of-type(4) .arti_r", .time, .date]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: [div.insMainConTitle_c, "div.info_table ul li:nth-of-type(3) .arti_r"]
+    strip_prefixes: ["来源：", "来源:"]
+    regex_extract: "来源[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-高校毕业生就业
+  region: 全国
+  document_type: employment_policy
+  max_tags: 6
+
+tag_rules:
+  高校毕业生: [高校毕业生, 毕业生]
+  青年就业: [青年就业, 青年, 就业服务攻坚行动]
+  就业见习: [就业见习, 见习]
+  就业服务: [就业服务, 公共就业服务, 招聘]
+  基层就业: [基层就业, 社区岗位, 三支一扶]
+  灵活就业: [灵活就业, 新就业形态]

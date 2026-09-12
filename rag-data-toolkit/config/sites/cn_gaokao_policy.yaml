@@ -1,0 +1,73 @@
+# 阳光高考 - 国家招生政策 / 强基计划 / 省市招生政策
+# gaokao.chsi.com.cn 使用瑞数 JS 反爬（HTTP 412）。requests 与默认 Playwright 均被拦截，
+# 必须走 Playwright 并附加 --disable-blink-features=AutomationControlled 才能渲染出列表。
+# 详情页同理：detail.render_fallback 触发 Playwright，浏览器参数由 pagination.browser.args 透传。
+site:
+  name: 阳光高考-国家招生政策
+  domain: gaokao.chsi.com.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://gaokao.chsi.com.cn/gkxx/zcdh/
+    - https://gaokao.chsi.com.cn/gkxx/qjjh/
+    - https://gaokao.chsi.com.cn/gkxx/zc/ss/
+  timeout: 25
+  retries: 3
+  delay: {min: 0.3, max: 0.8}
+
+list:
+  item_selector: "ul.news-list > li"
+  link_selector: "div.title a"
+  title_selector: "div.title a"
+  date_selector: "div.time"
+
+pagination:
+  type: playwright_click
+  next_selector: "div.pageC a:nth-of-type(3)"
+  wait_timeout_ms: 20000
+  settle_ms: 500
+  headless: false
+  browser:
+    prefer_system_chrome: true
+    args:
+      - "--disable-blink-features=AutomationControlled"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - "div.title-box h2"
+      - "h2"
+      - "h1"
+  content:
+    selectors:
+      - "div.detail"
+      - ".content-box"
+      - "#content"
+  publish_time:
+    selectors:
+      - "div.news-msg > span"
+      - ".news-msg span"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - "div.news-msg span:nth-of-type(2)"
+
+metadata:
+  category: 教育与人才-国家-阳光高考
+  region: 全国
+  document_type: admission_policy
+  max_tags: 6
+
+tag_rules:
+  强基计划: [强基计划, 基础学科招生]
+  专项计划: [高校专项, 国家专项, 地方专项, 专项计划]
+  公费师范生: [公费师范生, 优师专项]
+  招生政策: [招生, 录取, 加分, 招生章程, 投档]

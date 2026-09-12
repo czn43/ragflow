@@ -1,0 +1,58 @@
+# 教育部 - 教育强国建设规划（detail 种子模式）
+# 以权威全文/解读详情页为种子，不做列表翻页：start_mode=detail，每条 start_url 直接抓正文。
+# 详情版式：标题 .moe-detail-box h1，正文 .TRS_Editor，日期/来源 .moe-detail-shuxing。
+site:
+  name: 教育部-教育强国建设规划
+  domain: moe.gov.cn
+
+crawler:
+  start_mode: detail
+  start_urls:
+    # 《教育强国建设规划纲要（2024—2035年）》全文（中央文件，已验证为完整正文）
+    - http://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/202501/t20250119_1176193.html
+    # 教育部负责人就《纲要》答记者问（权威解读）
+    - http://www.moe.gov.cn/jyb_xwfb/s271/202501/t20250119_1176197.html
+    # 教育部新闻：中共中央、国务院印发《纲要》 加快建设中国特色社会主义教育强国
+    - http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202501/t20250119_1176166.html
+    # 教育部党组书记、部长怀进鹏撰文：以改革创新精神贯彻实施教育强国建设规划纲要
+    - http://www.moe.gov.cn/jyb_xwfb/moe_176/202509/t20250901_1411247.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+pagination:
+  type: none
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors: [".moe-detail-box h1", "h1", ".article-title"]
+  content:
+    selectors: [".TRS_Editor", ".moe-detail-box", "#UCAP-CONTENT"]
+  publish_time:
+    selectors: [".moe-detail-shuxing", "#detail-date-source", ".date"]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: [".moe-detail-shuxing", ".source"]
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s　]+)"
+
+metadata:
+  category: 教育与人才-国家-教育强国建设规划
+  region: 全国
+  document_type: strategic_plan
+  max_tags: 6
+
+tag_rules:
+  教育强国: [教育强国, 教育现代化, 教育科技人才, 立德树人]
+  职业教育: [职业教育, 产教融合, 技能人才]
+  高等教育: [高等教育, 高校, 双一流, 研究生]
+  教师队伍: [教师, 师资, 教育家精神]
+  基础教育: [基础教育, 义务教育, 学前教育]

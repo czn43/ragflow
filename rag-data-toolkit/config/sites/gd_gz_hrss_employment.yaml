@@ -1,0 +1,72 @@
+# 广州市人力资源和社会保障局 - 就业及人才专题
+# 列表：ul.infoList li → a[href*='/content/post_']，日期 span.time；分页 .pagediv a.next。
+# 详情：.title / .time .publishTime / .time .resourse / .content(#zoomcon)。
+# 侧栏 15 个专题共用同一模板，作为独立入口一并采集。
+site:
+  name: 广州市人力资源和社会保障局-就业及人才
+  domain: rsj.gz.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/jy/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/yjrcrh/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/rsks/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/gzzc/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/gccrc/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/lxry/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/bsh/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/jxjy/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/rczc/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/sb/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/ldyg/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/jnts/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/lhjy/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/ylbx/index.html
+    - https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/rsrcpx/index.html
+  timeout: 20
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.6
+
+list:
+  item_selector: "ul.infoList li"
+  link_selector: "a[href*='/content/post_']"
+  title_selector: "a"
+  date_selector: "span.time"
+
+pagination:
+  type: next_link
+  next_selector: ".pagediv a.next"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors: [".title ucaptitle", ".title", "h1"]
+  content:
+    selectors: [".content", "#zoomcon"]
+  publish_time:
+    selectors: [".publishTime", ".time .publishTime", ".time .publishTime publishtime"]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: [".time .resourse font", ".time .resourse", ".source"]
+    regex_extract: "(?:信息来源|来源)[：:]\\s*(.+)"
+
+metadata:
+  category: 教育与人才-广州就业人才
+  region: 广东
+  document_type: employment_policy
+  max_tags: 7
+
+tag_rules:
+  高校毕业生: [高校毕业生, 毕业生, 院校]
+  人才引进: [人才引进, 入户, 高层次人才, 博士后]
+  就业补贴: [补贴, 见习, 就业创业]
+  技能人才: [技能, 职称, 技能提升培训]

@@ -1,0 +1,87 @@
+# 全国学生资助管理中心 (xszz.edu.cn) - 学生资助政策
+# 栏目结构：政策文件(n39)按学段分子栏 + 政策问答(n41)，列表模板一致：
+#   div.erjiCon.wrap li > span(日期) + a[href*="content.html"] > h5(标题) + p(摘要)
+# 分页为 JS 生成，真实静态页为 <栏目>/index_53_<N>.html（N>=1 即第 2 页）。
+# 采用 moe.gov.cn 同样的 url_template 变通：显式把第 2 页放进 start_urls，避免跳页。
+site:
+  name: 全国学生资助管理中心-学生资助政策
+  domain: xszz.edu.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    # 政策文件各学段（高校 / 综合 / 学前 / 义务 / 普通高中 / 中职）
+    - https://www.xszz.edu.cn/n39/n54/index.html
+    - https://www.xszz.edu.cn/n39/n54/index_53_1.html
+    - https://www.xszz.edu.cn/n39/n53/index.html
+    - https://www.xszz.edu.cn/n39/n58/index.html
+    - https://www.xszz.edu.cn/n39/n57/index.html
+    - https://www.xszz.edu.cn/n39/n56/index.html
+    - https://www.xszz.edu.cn/n39/n55/index.html
+    # 政策问答各学段（高等教育 / 中职 / 普通高中 / 义务教育 / 学前）
+    - https://www.xszz.edu.cn/n41/n61/index.html
+    - https://www.xszz.edu.cn/n41/n62/index.html
+    - https://www.xszz.edu.cn/n41/n63/index.html
+    - https://www.xszz.edu.cn/n41/n64/index.html
+    - https://www.xszz.edu.cn/n41/n65/index.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  item_selector: "div.erjiCon.wrap li"
+  link_selector: "a[href*='content.html']"
+  title_selector: "h5"
+  date_selector: "span"
+
+# 静态分页真实路径为 index_53_1.html(第2页)、index_53_2.html(第3页)…
+# 以高校学生资助栏(n54)为分页模板；第 2 页由 start_urls 显式补齐。
+pagination:
+  type: url_template
+  template: "https://www.xszz.edu.cn/n39/n54/index_53_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - "h2.title2"
+      - "h1"
+      - ".title"
+  content:
+    selectors:
+      - "#txtSize"
+      - "div.contentBox"
+      - ".article"
+  publish_time:
+    selectors:
+      - "div.newsinfo span"
+      - ".newsinfo"
+      - ".time"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - ".source"
+      - ".from"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*(.+)"
+
+metadata:
+  category: 教育与人才-国家-学生资助
+  region: 全国
+  document_type: student_aid_policy
+  max_tags: 6
+
+tag_rules:
+  国家助学金: [国家助学金, 助学金]
+  奖学金: [奖学金, 励志奖学金]
+  助学贷款: [助学贷款, 生源地信用助学贷款, 贷款]
+  免学费: [免学费, 学费减免]
+  困难学生: [家庭经济困难, 困难学生, 认定]
+  中职资助: [中职, 中等职业, 职业教育]

@@ -1,0 +1,79 @@
+# 国家职业教育（教育部政府信息公开-职业与成人教育）
+# 覆盖栏目：
+#   职业教育与继续教育综合性政策规定和制度文件 / 职业教育教学-专业设置备案审批结果
+#   职业教育教学-高职专科专业目录年度增补专业 / 继续教育专业管理-学历继续教育专业设置备案
+# 列表：dl#list > dd，日期 span.x_gkndbg_pcdate；详情：#downloadContent + .moe-detail-shuxing。
+# 已核实静态附件（PDF）：t20220222_601338 页 -> W020220223300433792603.pdf
+#   http://www.moe.gov.cn/srcsite/A07/moe_953/202202/W020220223300433792603.pdf
+site:
+  name: 教育部-职业教育
+  domain: moe.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_zjjjgl/zyjyyjxjyzhgl_zczd/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_zjjjgl/zyjyyjxjyzhgl_zczd/index_1.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_zjjx/zyjyjx_spjg/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_zjjx/zyjyjx_spjg/index_1.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_zjjx/zyjyjx_zbzy/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_zzdyxxgl/zzdyyxxgl_zswj/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_jjzygl/jxjyzygl_baspjg/index.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  item_selector: "dl#list dd"
+  link_selector: "a"
+  title_selector: "a"
+  date_selector: "span.x_gkndbg_pcdate"
+
+pagination:
+  type: url_template
+  template: "http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_zycrjy/zycrjy_zjjjgl/zyjyyjxjyzhgl_zczd/index_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - "#downloadContent h1"
+      - ".moe-detail-box h1"
+      - "h1"
+  content:
+    selectors:
+      - "#downloadContent"
+      - ".TRS_Editor"
+      - ".moe-detail-box"
+  publish_time:
+    selectors:
+      - ".moe-detail-shuxing"
+      - "#detail-date-source"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - ".moe-detail-shuxing"
+      - "#detail-date-source"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-职业教育
+  region: 全国
+  document_type: vocational_education_policy
+  max_tags: 6
+
+tag_rules:
+  中职: [中等职业, 中职, 职业高中]
+  高职: [高等职业, 高职, 专科]
+  职业本科: [职业本科, 本科层次职业]
+  产教融合: [产教融合, 校企合作, 实训基地]
+  课程教材: [教材, 课程, 教学能力]
+  专业目录: [专业目录, 专业设置, 增补专业, 备案审批]

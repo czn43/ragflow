@@ -1,0 +1,69 @@
+# 人力资源和社会保障部 - 信息公开 - 政策法规（人社综合政策）
+# 说明：mohrss.gov.cn 全部页面返回 ~980B 的 JS 反爬挑战（EO_Bot），
+# 纯 requests 只能拿到空壳，故列表必须走 playwright_click，
+# 详情页依靠 detail.render_fallback 用浏览器渲染后再规则抽取。
+site:
+  name: 人力资源和社会保障部-政策法规
+  domain: mohrss.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://www.mohrss.gov.cn/xxgk2020/fdzdgknr/zcfg/
+  timeout: 25
+  retries: 3
+  delay: {min: 0.3, max: 0.8}
+
+list:
+  item_selector: ul.rsb_con_rightUl li
+  link_selector: a
+  title_selector: a
+  date_selector: span
+
+pagination:
+  type: playwright_click
+  next_selector: div.pagede a.nextpage
+  wait_timeout_ms: 20000
+  settle_ms: 500
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    # 模板A: insMainCon*（业务栏目） / 模板B: artT（信息公开）
+    selectors: [div.insMainConTitle_b, div.artT, h1, .article-title, .content_title]
+  content:
+    # 顺序影响渲染速度：本栏目详情页绝大多数是模板B（div.art_det），
+    # DetailRenderer 按顺序等待选择器，模板A放前面会白等 2×12s/篇。
+    selectors:
+      - "div.art_det div.clearboth"
+      - "div.art_det"
+      - "#insMainConTxt .TRS_Editor"
+      - "#insMainConTxt"
+      - ".TRS_Editor"
+      - ".article-content"
+  publish_time:
+    selectors: [div.insMainConTitle_c, div.art_infos span, "div.info_table ul li:nth-of-type(4) .arti_r", .time, .date]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: [div.insMainConTitle_c, "div.info_table ul li:nth-of-type(3) .arti_r"]
+    strip_prefixes: ["来源：", "来源:"]
+    regex_extract: "来源[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-人社综合政策
+  region: 全国
+  document_type: talent_employment_policy
+  max_tags: 6
+
+tag_rules:
+  高校毕业生: [高校毕业生, 毕业生, 青年就业]
+  就业创业: [就业, 创业, 就业见习, 灵活就业]
+  职称与专业技术人才: [职称, 专业技术人才, 职业资格]
+  技能人才: [技能人才, 技师, 职业技能等级]
+  博士后: [博士后, 博士后科研流动站]

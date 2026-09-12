@@ -1,0 +1,71 @@
+# 国家高校招生政策（教育部政府信息公开-高等教育-高等学校招生）
+# 入口栏目：全国普通高校、成人高校招生相关政策文件（gxzs_zszcwj），列表结构 dl#list > dd，
+# 日期 span.x_gkndbg_pcdate，链接为跨目录绝对相对路径（../../../../srcsite/A15/...）。
+# 该栏含 2026/2025 年度普通高校与成人高校招生通知，年份都在标题里。
+# 分页：index.html=第1页、index_N.html=第N+1页（与 MOE 其它栏目 index_N 约定一致，已验证 0..4 页日期递减）。
+site:
+  name: 教育部-高校招生政策
+  domain: moe.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_gdjy/gdjy_gxzs/gxzs_zszcwj/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_gdjy/gdjy_gxzs/gxzs_zszcwj/index_1.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  item_selector: "dl#list dd"
+  link_selector: "a"
+  title_selector: "a"
+  date_selector: "span.x_gkndbg_pcdate"
+
+pagination:
+  type: url_template
+  template: "http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/fenlei/sxml_gdjy/gdjy_gxzs/gxzs_zszcwj/index_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - "#downloadContent h1"
+      - ".moe-detail-box h1"
+      - "h1"
+  content:
+    selectors:
+      - "#downloadContent"
+      - ".TRS_Editor"
+      - ".moe-detail-box"
+  publish_time:
+    selectors:
+      - ".moe-detail-shuxing"
+      - "#detail-date-source"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - ".moe-detail-shuxing"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-高校招生政策
+  region: 全国
+  document_type: admission_policy
+  max_tags: 6
+
+tag_rules:
+  普通高校招生: [普通高校招生, 招生工作, 招生录取]
+  招生章程: [招生章程, 招生简章]
+  专项计划: [专项计划, 农村专项, 贫困地区, 保送]
+  加分政策: [加分, 照顾政策, 优待]
+  录取管理: [录取, 投档, 退档, 违规]
+  成人高考: [成人高校, 成人高考, 成人高等教育]

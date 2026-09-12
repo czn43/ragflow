@@ -1,0 +1,141 @@
+# 国家教育与人才 - P0 任务
+# 覆盖 16 个国家权威源：教育部综合政策/法律法规/招生、阳光高考、学生资助、
+# 人社综合/高校毕业生就业/职称/技能人才、国务院顶层政策、教育强国规划、
+# 职业教育、教育统计、学信网服务规则、教育考试规则、权威政策解读。
+task:
+  id: national_education_talent_p0
+  name: 国家教育与人才-P0
+  description: 国家教育、招生资助、就业人才、技能职称、统计与权威解读
+
+sites:
+  - id: cn_moe_core_policy
+    name: 教育部综合政策
+    config: config/sites/cn_moe_core_policy.yaml
+    enabled: true
+    priority: 1
+    max_pages: 15
+    max_docs: 350
+
+  - id: cn_moe_laws_regulations
+    name: 教育法律法规
+    config: config/sites/cn_moe_laws_regulations.yaml
+    enabled: true
+    priority: 1
+    max_pages: 8
+    max_docs: 60
+
+  - id: cn_moe_admission_policy
+    name: 高校招生政策
+    config: config/sites/cn_moe_admission_policy.yaml
+    enabled: true
+    priority: 1
+    max_pages: 10
+    max_docs: 80
+
+  - id: cn_gaokao_policy
+    name: 阳光高考
+    config: config/sites/cn_gaokao_policy.yaml
+    enabled: true
+    priority: 1
+    max_pages: 6
+    max_docs: 180
+
+  - id: cn_student_aid
+    name: 学生资助
+    config: config/sites/cn_student_aid.yaml
+    enabled: true
+    priority: 1
+    max_pages: 12
+    max_docs: 120
+
+  - id: cn_mohrss_core_policy
+    name: 人社综合政策
+    config: config/sites/cn_mohrss_core_policy.yaml
+    enabled: true
+    priority: 1
+    max_pages: 30
+    max_docs: 280
+
+  - id: cn_mohrss_graduate_employment
+    name: 高校毕业生就业
+    config: config/sites/cn_mohrss_graduate_employment.yaml
+    enabled: true
+    priority: 1
+    max_pages: 3
+    max_docs: 90
+
+  - id: cn_mohrss_professional_titles
+    name: 专业技术人才与职称
+    config: config/sites/cn_mohrss_professional_titles.yaml
+    enabled: true
+    priority: 1
+    max_pages: 3
+    max_docs: 100
+
+  - id: cn_mohrss_skilled_talent
+    name: 技能人才
+    config: config/sites/cn_mohrss_skilled_talent.yaml
+    enabled: true
+    priority: 1
+    max_pages: 3
+    max_docs: 100
+
+  - id: cn_gov_top_policy
+    name: 国务院顶层政策
+    config: config/sites/cn_gov_top_policy.yaml
+    enabled: true
+    priority: 1
+    max_pages: 1
+    max_docs: 120
+
+  - id: cn_education_power_plan
+    name: 教育强国建设规划
+    config: config/sites/cn_education_power_plan.yaml
+    enabled: true
+    priority: 1
+    max_pages: 1
+    max_docs: 15
+
+  - id: cn_moe_vocational_education
+    name: 职业教育
+    config: config/sites/cn_moe_vocational_education.yaml
+    enabled: true
+    priority: 2
+    max_pages: 15
+    max_docs: 130
+
+  - id: cn_moe_education_statistics
+    name: 教育统计
+    config: config/sites/cn_moe_education_statistics.yaml
+    enabled: true
+    priority: 2
+    max_pages: 5
+    max_docs: 30
+
+  - id: cn_chsi_rules
+    name: 学籍学历学位服务
+    config: config/sites/cn_chsi_rules.yaml
+    enabled: true
+    priority: 2
+    max_pages: 1
+    max_docs: 40
+
+  - id: cn_neea_exam_rules
+    name: 教育考试规则
+    config: config/sites/cn_neea_exam_rules.yaml
+    enabled: true
+    priority: 2
+    max_pages: 10
+    max_docs: 60
+
+  - id: cn_national_policy_explain
+    name: 国家权威政策解读
+    config: config/sites/cn_national_policy_explain.yaml
+    enabled: true
+    priority: 3
+    max_pages: 12
+    max_docs: 80
+
+merge:
+  dedup_url: true
+  dedup_content: true

@@ -1,0 +1,57 @@
+# 广州市教育局 - 政策解读
+# 列表：div.news_list ul li → a[href*='/content/post_']，日期在 li 内 span；分页 .pagediv a.next。
+# 详情：h1.content_title / .content_attr li.date / li.ly / .content_article(#zoomcon)。
+site:
+  name: 广州市教育局-政策解读
+  domain: jyj.gz.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://jyj.gz.gov.cn/yw/zcjd/index.html
+  timeout: 20
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.6
+
+list:
+  item_selector: "div.news_list ul li"
+  link_selector: "a[href*='/content/post_']"
+  title_selector: "a"
+  date_selector: "span"
+
+pagination:
+  type: next_link
+  next_selector: ".pagediv a.next"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors: [".content_title", "h1", ".title"]
+  content:
+    selectors: [".content_article", "#zoomcon"]
+  publish_time:
+    selectors: [".content_attr li.date", ".date", ".time"]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: [".content_attr li.ly b", ".content_attr li.ly", ".source"]
+    regex_extract: "(?:来源)[：:]\\s*(.+)"
+
+metadata:
+  category: 教育与人才-广州教育-政策解读
+  region: 广东
+  document_type: policy_explanation
+  max_tags: 6
+
+tag_rules:
+  招生入学: [招生, 入学, 学位]
+  教师队伍: [教师, 师资, 职称]
+  职业教育: [职业教育, 中职, 高职]
+  高中教育: [中考, 高中, 学业水平]

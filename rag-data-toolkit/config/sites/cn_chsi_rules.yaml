@@ -1,0 +1,74 @@
+# 学信网 - 学籍 / 学历 / 学位 / 在线验证 / 学历认证 官方规则与服务指南
+# chsi.com.cn 同样使用瑞数 JS 反爬（HTTP 412）。列表与详情均需 Playwright，
+# 并附加 --disable-blink-features=AutomationControlled 才能通过校验。
+# 仅收录静态官方规则/服务指南；排除资讯、推广、院校名单与任何需要凭据的个人查询页。
+site:
+  name: 学信网-学籍学历学位服务规则
+  domain: chsi.com.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://www.chsi.com.cn/xlrz/index.jsp
+    - https://www.chsi.com.cn/help/
+    - https://www.chsi.com.cn/xlcx/bgcx.jsp
+  timeout: 25
+  retries: 3
+  delay: {min: 0.3, max: 0.8}
+
+list:
+  # 三个栏目各自的服务/指南列表；条目本身就是 <a>，故 link_selector 用 @self。
+  item_selector: "ul.zygz-list a, ul.help-left-menu a, ul.zxyz-left-menu a"
+  link_selector: "@self"
+
+pagination:
+  # 三个栏目均为单页、无分页控件；用 playwright_click 仅为强制 Playwright 渲染，
+  # 无 next_selector 时一轮后自然停止。
+  type: playwright_click
+  wait_timeout_ms: 20000
+  settle_ms: 500
+  headless: false
+  browser:
+    prefer_system_chrome: true
+    args:
+      - "--disable-blink-features=AutomationControlled"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  # 多为 .content-box，部分指南用 .m_cnt_m.wz_page；错误选择器等待压到 3.5s。
+  render_wait_timeout_ms: 3500
+  title:
+    selectors:
+      - "div.title-box h2"
+      - "h2.line-title"
+      - "h1"
+  content:
+    selectors:
+      - ".content-box"
+      - ".m_cnt_m.wz_page"
+      - "#content"
+  publish_time:
+    selectors:
+      - "div.news-msg > span"
+      - ".news-msg span"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - "div.news-msg span:nth-of-type(2)"
+
+metadata:
+  category: 教育与人才-国家-学籍学历学位服务
+  region: 全国
+  document_type: service_rule
+  max_tags: 6
+
+tag_rules:
+  学籍学历: [学籍, 学历, 学位, 学历认证, 学籍查询]
+  在线验证: [在线验证, 验证报告, 电子注册备案表]
+  服务指南: [指南, 流程, 办理, 申请]

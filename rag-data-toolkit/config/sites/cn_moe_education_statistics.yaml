@@ -1,0 +1,80 @@
+# 国家教育统计（教育部文献/公开-教育统计）
+# 覆盖：
+#   1) 全国教育事业发展统计公报 gongbao（已验证最新为 2025 年公报 t20260706_1442870，页面 live）
+#   2) 全国教育经费执行情况统计公告 jytj_jftjgg
+#   3) 教育统计数据年度数据表 moe_560/<年>/quanguo（全国）与 gedi（各地）
+# 列表结构：公报/公告栏为 dl#list > dd（日期 span.x_gkndbg_pcdate）；
+#           年度数据表为 #list li（日期 span，a.title 为指标名）。
+# 年度数据表详情是统计表格，页面本身无发布日期，publish_time 用列表页 span 兜底。
+site:
+  name: 教育部-教育统计
+  domain: moe.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/tongji/gongbao/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/tongji/gongbao/index_1.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/tongji/jytj_jftjgg/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/xxgk/neirong/tongji/jytj_jftjgg/index_1.html
+    - http://www.moe.gov.cn/jyb_sjzl/moe_560/2024/quanguo/index.html
+    - http://www.moe.gov.cn/jyb_sjzl/moe_560/2024/quanguo/index_1.html
+    - http://www.moe.gov.cn/jyb_sjzl/moe_560/2024/gedi/index.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  # 公报/公告（dl#list dd）与年度数据表（#list li）两种结构并存，用逗号选择器同时命中。
+  item_selector: "dl#list dd, #list li"
+  link_selector: "a"
+  title_selector: "a"
+  date_selector: "span.x_gkndbg_pcdate, span"
+
+pagination:
+  type: url_template
+  template: "http://www.moe.gov.cn/jyb_sjzl/moe_560/2024/gedi/index_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - ".moe-detail-box h1"
+      - "#downloadContent h1"
+      - "h1"
+  content:
+    selectors:
+      - ".moe-detail-box .TRS_Editor"
+      - ".statistics-container"
+      - "#downloadContent"
+      - ".moe-detail-box"
+  publish_time:
+    selectors:
+      - ".moe-detail-shuxing"
+      - "#detail-date-source"
+    strip_prefixes: ["发布日期：", "发布日期:", "日期："]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - ".moe-detail-shuxing"
+      - "#detail-date-source"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-教育统计
+  region: 全国
+  document_type: statistical_bulletin
+  max_tags: 6
+
+tag_rules:
+  统计公报: [统计公报, 教育事业发展]
+  经费统计: [经费执行, 经费统计, 教育经费]
+  统计数据: [统计数据, 基本情况, 学校数, 学生数, 教职工]

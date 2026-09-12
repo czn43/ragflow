@@ -1,0 +1,71 @@
+# 国家教育法律法规（教育部文献频道-政策法规）
+# 栏目树：教育法律 / 教育行政法规 / 教育部门规章 / 高等学校章程 / 其他相关法律 / 其他相关法规。
+# 七大教育法律逐部可达（教育法律栏 9 条）：
+#   教育法 t20210730_547843、义务教育法 t20211029_575949、职业教育法 t20220421_620064、
+#   高等教育法 t20220421_620257、教师法 tnull_1314、学位法 t20240426_1127804、学前教育法 t20241108_1161363。
+# 入口用 index.html（url_normalizer 会去掉路径末尾 "/"，用栏目目录 URL 会导致相对详情链接 404）。
+site:
+  name: 教育部-教育法律法规
+  domain: moe.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_jyfl/index.html
+    - http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_jyxzfg/index.html
+    - http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_jyxzfg/index_1.html
+    - http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_jybmgz/index.html
+    - http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_jybmgz/index_1.html
+    - http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_qtxgfl/index.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  item_selector: "#list li"
+  link_selector: "a"
+  title_selector: "a"
+  date_selector: "span"
+
+pagination:
+  type: url_template
+  template: "http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_jybmgz/index_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - ".moe-detail-box h1"
+      - "h1"
+  content:
+    selectors:
+      - ".TRS_Editor"
+      - ".moe-detail-box"
+      - "#content"
+  publish_time:
+    selectors:
+      - "#detail-date-source"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - "#detail-date-source"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-教育法律法规
+  region: 全国
+  document_type: law_regulation
+  max_tags: 6
+
+tag_rules:
+  教育法律: [教育法, 义务教育法, 职业教育法, 高等教育法, 教师法, 学位法, 学前教育法]
+  行政法规: [条例, 国务院令, 实施细则]
+  部门规章: [教育部令, 规定, 办法, 规章]

@@ -1,0 +1,85 @@
+# 中国政府网 - 国家顶层政策（中共中央 / 国务院 / 中办国办）
+#
+# 为何用 detail 种子模式而非 list：
+#   gov.cn 的“最新政策/国务院文件”栏目（/zhengce/zuixin/、/zhengce/wenjian/、/zhengce/zhengceku/）
+#   列表均由 JS 读取 ZUIXINZHENGCE.json 渲染，plain requests 取不到 <li>；而 zuixin/wenjian/zhengceku
+#   对 requests 直接 403。本任务契约测试只允许 pagination.type ∈
+#   {next_link,url_template,page_parameter,none}，不允许 playwright_click，
+#   因此无法用列表模式稳定抓取该栏目。
+#   改以“人工核验的顶层政策全文详情页”为种子（start_mode=detail），只收录
+#   中共中央/国务院/中办国办文件，覆盖 教育强国、就业优先、人才发展、职业教育、高校毕业生。
+# 详情版式：正文 #UCAP-CONTENT；XXGK 版式标题在属性表第 5 个 p，发布日期在第 7 个 p；
+#   新闻版式标题 h1、日期 .pages-date。requests 原始 HTML 下 #UCAP-CONTENT 会被 lxml 截断，
+#   故 render_fallback=true，自动改用浏览器渲染后再抽正文。
+site:
+  name: 中国政府网-国家顶层政策
+  domain: gov.cn
+
+crawler:
+  start_mode: detail
+  start_urls:
+    # —— 教育强国 / 教育发展 ——
+    - https://www.gov.cn/zhengce/202501/content_6999914.htm   # 中共中央 国务院印发《教育强国建设规划纲要（2024－2035年）》
+    - https://www.gov.cn/zhengce/content/202606/content_7073640.htm   # 国务院关于印发《教育发展“十五五”规划》的通知
+    - https://www.gov.cn/zhengce/content/202608/content_7078320.htm   # 国务院关于《特殊教育发展提升“十五五”行动计划》的批复
+    - https://www.gov.cn/zhengce/content/202508/content_7035305.htm   # 国务院办公厅关于逐步推行免费学前教育的意见
+    - https://www.gov.cn/zhengce/202408/content_6970677.htm   # 中共中央 国务院关于弘扬教育家精神加强新时代高素质专业化教师队伍建设的意见
+    - https://www.gov.cn/zhengce/202306/content_6886116.htm   # 中办国办关于构建优质均衡的基本公共教育服务体系的意见
+    # —— 就业优先 ——
+    - https://www.gov.cn/zhengce/content/202606/content_7072481.htm   # 国务院关于印发《实施就业优先战略“十五五”规划》的通知
+    - https://www.gov.cn/zhengce/202409/content_6976470.htm   # 中共中央 国务院关于实施就业优先战略促进高质量充分就业的意见
+    - https://www.gov.cn/zhengce/content/202507/content_7031215.htm   # 国务院办公厅关于进一步加大稳就业政策支持力度的通知
+    - https://www.gov.cn/zhengce/content/2023-04/26/content_5753299.htm   # 国务院办公厅关于优化调整稳就业政策措施全力促发展惠民生的通知
+    - https://www.gov.cn/zhengce/202604/content_7066998.htm   # 中办国办关于加强新就业群体服务管理的意见
+    - https://www.gov.cn/zhengce/content/202506/content_7030053.htm   # 国务院办公厅关于印发《促进残疾人就业三年行动方案（2025—2027年）》的通知
+    # —— 高校毕业生 ——
+    - https://www.gov.cn/zhengce/202504/content_7017579.htm   # 中办国办关于加快构建普通高等学校毕业生高质量就业服务体系的意见
+    - https://www.gov.cn/zhengce/content/2022-05/13/content_5690111.htm   # 国务院办公厅关于进一步做好高校毕业生等青年就业创业工作的通知
+    # —— 人才发展 ——
+    - https://www.gov.cn/zhengce/2022-10/07/content_5716030.htm   # 中办国办关于加强新时代高技能人才队伍建设的意见
+    - https://www.gov.cn/zhengce/202308/content_6900456.htm   # 中办国办关于进一步加强青年科技人才培养和使用的若干措施
+    - https://www.gov.cn/zhengce/202410/content_6981723.htm   # 中办国办印发《关于加快推动博士研究生教育高质量发展的意见》
+    # —— 职业教育 / 教师 ——
+    - https://www.gov.cn/zhengce/2022-12/21/content_5732986.htm   # 中办国办关于深化现代职业教育体系建设改革的意见
+    - https://www.gov.cn/zhengce/content/202406/content_6957260.htm   # 国务院办公厅转发教育部等部门《教育部直属师范大学本研衔接师范生公费教育实施办法》的通知
+    - https://www.gov.cn/zhengce/content/2022-01/25/content_5670341.htm   # 国务院办公厅关于转发教育部等部门“十四五”特殊教育发展提升行动计划的通知
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+pagination:
+  type: none
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors: ["h1", ".abstract p:nth-of-type(5)", ".article-title"]
+  content:
+    selectors: ["#UCAP-CONTENT", ".TRS_Editor", ".article-content"]
+  publish_time:
+    selectors: [".pages-date", ".abstract p:nth-of-type(7)"]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: ["span.font-zyygwj", ".source"]
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s　]+)"
+
+metadata:
+  category: 教育与人才-国家-顶层政策
+  region: 全国
+  document_type: top_level_policy
+  max_tags: 6
+
+tag_rules:
+  教育强国: [教育强国, 教育现代化, 立德树人, 教育发展]
+  就业优先: [就业优先, 稳就业, 就业, 创业]
+  人才发展: [人才, 人才强国, 高技能人才, 专业技术人才, 科技人才]
+  职业教育: [职业教育, 产教融合, 现代职业教育]
+  高校毕业生: [高校毕业生, 毕业生, 青年就业]

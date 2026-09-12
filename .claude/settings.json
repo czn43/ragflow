@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git archive *)",
+      "Bash(tar -x -C .)",
+      "Bash(awk '{print $1}')"
+    ]
+  }
+}

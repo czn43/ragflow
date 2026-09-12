@@ -1,0 +1,70 @@
+# 人力资源和社会保障部 - 人才人事 - 专业技术人才（政策文件）
+# 说明：mohrss.gov.cn 对纯 requests 返回 ~980B JS 反爬挑战（EO_Bot），
+# 列表页必须用 playwright_click；详情页靠 render_fallback 渲染后抽取。
+# 职称评审条件等评价标准多以 PDF 附件形式挂在正文，detail 会自动收集所有 PDF。
+site:
+  name: 人力资源和社会保障部-专业技术人才与职称
+  domain: mohrss.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://www.mohrss.gov.cn/SYrlzyhshbzb/rencairenshi/zcwj/zhuanyejishurenyuan/
+  timeout: 25
+  retries: 3
+  delay: {min: 0.3, max: 0.8}
+
+list:
+  item_selector: div.organGeneralNewListConType
+  link_selector: a
+  title_selector: a
+  date_selector: div.organGeneralNewListTxtConTime
+
+pagination:
+  type: playwright_click
+  next_selector: img.pageNextBtn
+  wait_timeout_ms: 20000
+  settle_ms: 500
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  # A/B 模板混排：错误模板选择器最多白等，压到 3.5s 提速。
+  render_wait_timeout_ms: 3500
+  title:
+    selectors: [div.insMainConTitle_b, div.artT, h1, .article-title, .content_title]
+  content:
+    # 顺序影响渲染速度：详情页绝大多数是模板B（div.art_det），
+    # DetailRenderer 按顺序等待选择器，模板A放前面会白等 2×12s/篇。
+    selectors:
+      - "div.art_det div.clearboth"
+      - "div.art_det"
+      - "#insMainConTxt .TRS_Editor"
+      - "#insMainConTxt"
+      - ".TRS_Editor"
+      - ".article-content"
+  publish_time:
+    selectors: [div.insMainConTitle_c, div.art_infos span, "div.info_table ul li:nth-of-type(4) .arti_r", .time, .date]
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors: [div.insMainConTitle_c, "div.info_table ul li:nth-of-type(3) .arti_r"]
+    strip_prefixes: ["来源：", "来源:"]
+    regex_extract: "来源[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-专业技术人才与职称
+  region: 全国
+  document_type: professional_title_policy
+  max_tags: 6
+
+tag_rules:
+  职称评审: [职称评审, 职称, 评审条件, 评价标准]
+  专业技术人才: [专业技术人才, 专业技术人员]
+  职业资格: [职业资格, 资格考试, 职业资格证书]
+  高级职称: [高级职称, 正高级, 副高级]
+  继续教育: [继续教育, 知识更新工程]

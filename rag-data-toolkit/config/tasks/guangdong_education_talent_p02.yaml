@@ -1,0 +1,21 @@
+# 广东省“教育与人才”比赛 - P0首轮任务
+# 目标：先覆盖高信息密度权威源，再用 benchmarks/100题检查召回缺口。
+task:
+  id: guangdong_education_talent_p02
+  name: 广东省教育与人才-P0首轮
+  description: 政策、考试招生、就业创业、技能人才、2026量化指标优先
+
+sites:
+
+  - id: gd_edu_development_plan
+    name: 广东教育发展规划
+    config: config/sites/gd_edu_development_plan.yaml
+    enabled: true
+    priority: 4
+    max_pages: 6
+    max_docs: 120
+
+
+merge:
+  dedup_url: true
+  dedup_content: true

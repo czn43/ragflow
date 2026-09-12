@@ -1,0 +1,84 @@
+# 教育部教育考试院 (neea.edu.cn) - 国家教育考试规则
+# 站点分主站 www.neea.edu.cn 与考试子站 ntce(教师资格)/cet(四六级)，同为 neea.edu.cn 域。
+# 列表模板有两类：div.listdiv ul li（新）与 div.conlistn ul li（旧），CET 问答用
+# div.listdiv0 ul li；三者链接均为 /html1/report/*.htm 详情页。
+# 分页为静态锚点 a#CBNext（/xxx-2.htm），next_link 可用。
+site:
+  name: 教育部教育考试院-国家教育考试规则
+  domain: neea.edu.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    # 教师资格考试(NTCE) 考试动态（报名/成绩/考试时间等当期通知）
+    - https://www.neea.edu.cn/html1/category/1507/1148-1.htm
+    # 主站 考试资讯（含 CET、成人高考等各类考试通知）
+    - https://www.neea.edu.cn/html1/category/16093/615-1.htm
+    # 主站 公示公告
+    - https://www.neea.edu.cn/html1/category/1508/151-1.htm
+    # 四六级(CET) 考试动态
+    - https://cet.neea.edu.cn/html1/category/16093/1124-1.htm
+    # 四六级(CET) 官方常见问题
+    - https://cet.neea.edu.cn/html1/category/16093/1129-1.htm
+    # 四六级(CET) 考核内容（耐久规则）
+    - https://cet.neea.edu.cn/html1/category/16123/192-1.htm
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  item_selector: "div.listdiv ul li, div.conlistn ul li, div.listdiv0 ul li"
+  link_selector: "a[href*='/html1/report/']"
+  title_selector: "a"
+  date_selector: "span#ReportIDIssueTime"
+
+pagination:
+  type: next_link
+  next_selector: "a#CBNext"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - "div.Condiv h1"
+      - "h1"
+      - "#ReportIDname"
+  content:
+    selectors:
+      - "div.Condiv"
+      - "div.conts"
+      - "#Content1"
+      - "#Content"
+  publish_time:
+    selectors:
+      - "span#ReportIDIssueTime"
+      - ".sou"
+      - ".times"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - ".source"
+      - ".from"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*(.+)"
+
+metadata:
+  category: 教育与人才-国家-教育考试规则
+  region: 全国
+  document_type: exam_rule
+  max_tags: 6
+
+tag_rules:
+  教师资格考试: [教师资格, NTCE, 笔试, 面试]
+  四六级: [四、六级, 四六级, CET, 英语]
+  报名: [报名, 报名公告, 报考]
+  成绩: [成绩, 成绩查询, 合格证明]
+  考试时间: [考试时间, 日程, 安排]
+  常见问题: [常见问题, 问答, 答疑]

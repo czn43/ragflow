@@ -1,0 +1,69 @@
+# 国家权威政策解读 — 教育部「政策解读 / 答记者问」栏目
+# 列表结构同教育部其它栏目：div#wcmpagehtml > ul#list > li（a + span 日期），20 条/页。
+# 分页为 JS 渲染，采用 index_N.html 模板 + 显式 index_1.html 入口（避免漏第 2 页）。
+# document_type: policy_explanation 会让抓取器继续追踪原政策链接与 PDF 附件。
+# 说明：人社/gov.cn 的解读栏目结构与本栏不兼容（mohrss 需 Playwright、gov.cn 为 JS 渲染），
+# 按计划允许的“按域拆分”原则，本逻辑源先落在教育部解读栏目；其余域由各自站点配置覆盖。
+site:
+  name: 国家权威政策解读-教育部
+  domain: moe.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - http://www.moe.gov.cn/jyb_xwfb/s271/index.html
+    - http://www.moe.gov.cn/jyb_xwfb/s271/index_1.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  item_selector: "#list li"
+  link_selector: "a"
+  title_selector: "a"
+  date_selector: "span"
+
+pagination:
+  type: url_template
+  template: "http://www.moe.gov.cn/jyb_xwfb/s271/index_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - ".moe-detail-box h1"
+      - "h1"
+      - "h2"
+  content:
+    selectors:
+      - ".TRS_Editor"
+      - ".moe-detail-box"
+      - "#content"
+  publish_time:
+    selectors:
+      - "#detail-date-source"
+      - ".moe-detail-box .time"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - "#detail-date-source"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-权威政策解读
+  region: 全国
+  document_type: policy_explanation
+  max_tags: 6
+
+tag_rules:
+  答记者问: [答记者问, 新闻发布会, 发布会]
+  政策解读: [解读, 政策解读, 权威解读]
+  实施说明: [实施, 落实, 适用范围, 问答]

@@ -1,0 +1,193 @@
+{
+  "version": "1.9.1",
+  "taskId": "national_education_talent_p0",
+  "taskConfig": "config/tasks/national_education_talent_p0.yaml",
+  "execution": [
+    {
+      "siteId": "cn_mohrss_graduate_employment",
+      "siteName": "高校毕业生就业",
+      "status": "success",
+      "finalCount": 74,
+      "qualitySummary": {
+        "final_count": 74,
+        "raw": 74,
+        "url_duplicate": 0,
+        "extracted": 74,
+        "cleaned": 74,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 74,
+        "final": 74
+      }
+    },
+    {
+      "siteId": "cn_mohrss_professional_titles",
+      "siteName": "专业技术人才与职称",
+      "status": "success",
+      "finalCount": 60,
+      "qualitySummary": {
+        "final_count": 60,
+        "raw": 60,
+        "url_duplicate": 0,
+        "extracted": 60,
+        "cleaned": 60,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 60,
+        "final": 60
+      }
+    },
+    {
+      "siteId": "cn_mohrss_skilled_talent",
+      "siteName": "技能人才",
+      "status": "success",
+      "finalCount": 60,
+      "qualitySummary": {
+        "final_count": 60,
+        "raw": 60,
+        "url_duplicate": 0,
+        "extracted": 60,
+        "cleaned": 60,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 60,
+        "final": 60
+      }
+    },
+    {
+      "siteId": "cn_gov_top_policy",
+      "siteName": "国务院顶层政策",
+      "status": "success",
+      "finalCount": 20,
+      "qualitySummary": {
+        "final_count": 20,
+        "raw": 20,
+        "url_duplicate": 0,
+        "extracted": 20,
+        "cleaned": 20,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 20,
+        "final": 20
+      }
+    },
+    {
+      "siteId": "cn_education_power_plan",
+      "siteName": "教育强国建设规划",
+      "status": "success",
+      "finalCount": 4,
+      "qualitySummary": {
+        "final_count": 4,
+        "raw": 4,
+        "url_duplicate": 0,
+        "extracted": 4,
+        "cleaned": 4,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 4,
+        "final": 4
+      }
+    },
+    {
+      "siteId": "cn_moe_vocational_education",
+      "siteName": "职业教育",
+      "status": "success",
+      "finalCount": 117,
+      "qualitySummary": {
+        "final_count": 117,
+        "raw": 130,
+        "url_duplicate": 0,
+        "extracted": 130,
+        "cleaned": 130,
+        "empty_content": 13,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 13,
+        "warnings": 0,
+        "validated": 117,
+        "final": 117
+      }
+    },
+    {
+      "siteId": "cn_moe_education_statistics",
+      "siteName": "教育统计",
+      "status": "success",
+      "finalCount": 30,
+      "qualitySummary": {
+        "final_count": 30,
+        "raw": 30,
+        "url_duplicate": 0,
+        "extracted": 30,
+        "cleaned": 30,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 30,
+        "final": 30
+      }
+    },
+    {
+      "siteId": "cn_chsi_rules",
+      "siteName": "学籍学历学位服务",
+      "status": "failed",
+      "error": "Page.wait_for_selector: Target page, context or browser has been closed\nCall log:\n  - waiting for locator(\"ul.zygz-list a, ul.help-left-menu a, ul.zxyz-left-menu a\") to be visible\n"
+    },
+    {
+      "siteId": "cn_neea_exam_rules",
+      "siteName": "教育考试规则",
+      "status": "success",
+      "finalCount": 60,
+      "qualitySummary": {
+        "final_count": 60,
+        "raw": 60,
+        "url_duplicate": 0,
+        "extracted": 60,
+        "cleaned": 60,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 60,
+        "final": 60
+      }
+    },
+    {
+      "siteId": "cn_national_policy_explain",
+      "siteName": "国家权威政策解读",
+      "status": "success",
+      "finalCount": 80,
+      "qualitySummary": {
+        "final_count": 80,
+        "raw": 80,
+        "url_duplicate": 0,
+        "extracted": 80,
+        "cleaned": 80,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 45,
+        "validated": 80,
+        "final": 80
+      }
+    }
+  ]
+}

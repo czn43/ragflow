@@ -110,6 +110,22 @@ sites:
     max_pages: 6
     max_docs: 120
 
+  - id: gd_gz_edu_policy_explain
+    name: 广州教育政策解读
+    config: config/sites/gd_gz_edu_policy_explain.yaml
+    enabled: true
+    priority: 4
+    max_pages: 8
+    max_docs: 200
+
+  - id: gd_gz_hrss_employment
+    name: 广州就业及人才专题
+    config: config/sites/gd_gz_hrss_employment.yaml
+    enabled: true
+    priority: 4
+    max_pages: 6
+    max_docs: 800
+
 merge:
   dedup_url: true
   dedup_content: true

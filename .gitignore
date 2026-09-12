@@ -14,7 +14,7 @@ ENV/
 dist/
 build/
 *.egg
-
+*.rar
 # 测试与覆盖率
 .pytest_cache/
 .coverage
@@ -48,3 +48,4 @@ rag-data-toolkit/data/**
 
 # 3. 在放行的目录里，单独保留 .gitkeep
 !rag-data-toolkit/data/**/.gitkeep
+1/**

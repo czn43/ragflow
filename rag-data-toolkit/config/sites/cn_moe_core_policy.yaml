@@ -1,0 +1,78 @@
+# 教育部综合政策（国家）— 中央文件 + 政策解读 + 公告公示
+# 列表结构：div#wcmpagehtml > ul#list > li，条目 a + span(日期)，20 条/页。
+# 分页为 JS 渲染（ul#page 为空），改用 index_N.html 模板；
+# start_urls 同时给出 base 与 index_1.html，避免模板从第 1 页直接跳到 index_2.html 漏掉第 2 页。
+# 注意：务必用 index.html 作为入口。爬虫 url_normalizer 会去掉路径末尾的 "/"，
+# 若直接用栏目目录 URL（.../moe_1778/），页面里的相对链接 ./YYYYMM/tXXX.html
+# 会被解析到上一层目录（.../moe_1777/...）导致详情 404。index.html 结尾可保住目录层级。
+site:
+  name: 教育部-综合政策
+  domain: moe.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - http://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/index_1.html
+    - http://www.moe.gov.cn/jyb_xwfb/s271/index.html
+    - http://www.moe.gov.cn/jyb_xwfb/s271/index_1.html
+    - http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/index.html
+    - http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/index_1.html
+  timeout: 25
+  retries: 3
+  delay:
+    min: 0.3
+    max: 0.8
+
+list:
+  item_selector: "#list li"
+  link_selector: "a"
+  title_selector: "a"
+  date_selector: "span"
+
+pagination:
+  type: url_template
+  template: "http://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/index_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - ".moe-detail-box h1"
+      - "h1"
+      - "h2"
+  content:
+    selectors:
+      - ".TRS_Editor"
+      - ".moe-detail-box"
+      - "#content"
+  publish_time:
+    selectors:
+      - "#detail-date-source"
+      - ".moe-detail-box .time"
+    regex_extract: "(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - "#detail-date-source"
+    regex_extract: "(?:来源|文章来源|资料来源)[：:]\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-国家-教育部综合政策
+  region: 全国
+  document_type: education_policy
+  max_tags: 6
+
+tag_rules:
+  教育强国: [教育强国, 教育发展“十五五”, 强国建设规划纲要]
+  义务教育: [义务教育, 基础教育, 特殊教育, 中小学]
+  学前教育: [学前教育, 幼儿园]
+  职业教育: [职业教育, 职业教育法, 产教融合]
+  教师队伍: [教师, 师资, 教育家精神, 教师资格]
+  高校: [高等学校, 高校, 高等教育, 本科, 研究生]
+  人工智能教育: [人工智能, 数字教育, 智慧教育]

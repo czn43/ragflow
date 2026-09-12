@@ -75,8 +75,14 @@ def browser_launch_args(cfg: dict) -> tuple[dict, dict]:
     headless = bool(pagination.get("headless", True))
     prefer_system = bool(browser_cfg.get("prefer_system_chrome", True))
     explicit_path = browser_cfg.get("executable_path") or None
+    extra_args = browser_cfg.get("args") or []
 
     args: dict = {"headless": headless}
+    if extra_args:
+        # Some sites (e.g. CHSI's WAF) refuse automated sessions unless specific
+        # Chrome switches are passed. Only set the key when configured so the
+        # default launch kwargs stay minimal.
+        args["args"] = list(extra_args)
     diagnostics = {
         "prefer_system_chrome": prefer_system,
         "browser_source": "playwright_chromium",
