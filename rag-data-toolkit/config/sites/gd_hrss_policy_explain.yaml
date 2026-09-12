@@ -1,12 +1,12 @@
-# 广东省人社厅 - 广东就业 / 政策法规 / 本省政策
-# 广东就业专题下按“国家政策 / 本省政策 / 政策解读”三栏目拆分之一。
+# 广东省人社厅 - 广东就业 / 政策法规 / 政策解读
+# document_type=policy_explanation 会触发“解读页→原文页→附件PDF”的关系解析。
 site:
-  name: 广东省人力资源和社会保障厅-就业本省政策
+  name: 广东省人力资源和社会保障厅-就业政策解读
   domain: hrss.gd.gov.cn
 crawler:
   start_mode: list
   start_urls:
-    - https://hrss.gd.gov.cn/jyzl/zcfg/bszc/
+    - https://hrss.gd.gov.cn/jyzl/zcfg/zcjd/
   timeout: 20
   retries: 3
   delay: {min: 0.2, max: 0.6}
@@ -38,12 +38,12 @@ detail:
   source:
     selectors: []
 metadata:
-  category: 教育与人才-就业政策-本省政策
+  category: 教育与人才-就业政策-政策解读
   region: 广东
-  document_type: employment_policy
+  document_type: policy_explanation
   max_tags: 7
 tag_rules:
-  就业见习: [就业见习, 见习岗位]
+  政策解读: [政策解读, 图解, 问答]
   高校毕业生: [高校毕业生, 毕业生]
-  补贴: [补贴, 社保补贴, 求职补贴, 基层岗位补贴]
-  创业: [创业, 创业担保贷款, 创业租金]
+  就业服务: [公共就业服务, 就业服务, 招聘]
+  补贴: [补贴, 社保补贴, 求职补贴]

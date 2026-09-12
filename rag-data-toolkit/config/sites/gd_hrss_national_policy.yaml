@@ -1,0 +1,51 @@
+# 广东省人社厅 - 广东就业 / 政策法规 / 国家政策
+# 说明：本栏目列表项指向外部 www.mohrss.gov.cn，使用 insMainCon* 模板；
+# 该站有 JS 反爬挑战，需 render_fallback 由浏览器渲染后再规则抽取。
+site:
+  name: 广东省人力资源和社会保障厅-就业国家政策
+  domain: hrss.gd.gov.cn
+crawler:
+  start_mode: list
+  start_urls:
+    - https://hrss.gd.gov.cn/jyzl/zcfg/gjzc/
+  timeout: 20
+  retries: 3
+  delay: {min: 0.2, max: 0.6}
+list:
+  item_selector: ul.list li
+  link_selector: "a[href*='mohrss.gov.cn']"
+  title_selector: "a[href*='mohrss.gov.cn']"
+  date_selector: .pubDate
+pagination:
+  type: next_link
+  next_selector: .pages a.next
+discovery:
+  min_score: 6
+  detail_url_score: 4
+  # 国家政策文章托管在外部域名，需允许跨域候选。
+  allow_external: true
+  # 空壳尾页没有文章列表时，兜底发现会命中页脚 /wzdh/ 导航，需要排除。
+  negative_path_words: ["/wzdh/"]
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors: [.insMainConTitle_b, h1, .article-title, .title]
+  content:
+    selectors: ["#insMainConTxt .TRS_Editor", "#insMainConTxt", .article-content]
+  publish_time:
+    selectors: [.insMainConTitle_c, .time, .date, .publish-time]
+    regex_extract: "(\\d{4}-\\d{1,2}-\\d{1,2})"
+  # 信息栏含“打印本页”等噪声，不强行抽取来源；无法确定时回落为站点名。
+  source:
+    selectors: []
+metadata:
+  category: 教育与人才-就业政策-国家政策
+  region: 广东
+  document_type: employment_policy
+  max_tags: 7
+tag_rules:
+  高校毕业生: [高校毕业生, 毕业生]
+  就业服务: [公共就业服务, 就业服务, 招聘]
+  就业援助: [就业援助, 就业困难人员, 零就业家庭]
+  补贴: [补贴, 社保补贴, 求职补贴]
