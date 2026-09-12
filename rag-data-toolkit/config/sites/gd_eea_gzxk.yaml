@@ -1,0 +1,40 @@
+# 广东省教育考试院 - 高中学考
+site:
+  name: 广东省教育考试院-高中学考
+  domain: eea.gd.gov.cn
+crawler:
+  start_mode: list
+  start_urls:
+    - https://eea.gd.gov.cn/gzxk/index.html
+  timeout: 20
+  retries: 3
+  delay: {min: 0.2, max: 0.6}
+list:
+  item_selector: ""
+  link_selector: "a"
+  title_selector: ""
+  date_selector: ""
+pagination:
+  type: url_template
+  template: "https://eea.gd.gov.cn/gzxk/index_{page}.html"
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+detail:
+  min_content_chars: 80
+  render_fallback: true
+  title:
+    selectors: ["h1", ".article-title", ".title"]
+  content:
+    selectors: [".TRS_Editor", ".article-content", ".content", "#content"]
+  publish_time:
+    selectors: [".time", ".date", ".publish-time", ".article-info"]
+    regex_extract: "(\\d{4}-\\d{1,2}-\\d{1,2})"
+  source:
+    selectors: [".source", ".article-source", ".article-info"]
+metadata:
+  category: 教育与人才-高中学业水平考试
+  region: 广东
+  document_type: examination
+  max_tags: 5

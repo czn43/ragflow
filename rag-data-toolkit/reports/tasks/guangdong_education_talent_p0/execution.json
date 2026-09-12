@@ -1,0 +1,207 @@
+{
+  "version": "1.9.0",
+  "taskId": "guangdong_education_talent_p0",
+  "taskConfig": "config/tasks/guangdong_education_talent_p0.yaml",
+  "execution": [
+    {
+      "siteId": "gd_work_report_2026",
+      "siteName": "2026广东省政府工作报告",
+      "status": "success",
+      "finalCount": 1,
+      "qualitySummary": {
+        "final_count": 1,
+        "raw": 1,
+        "url_duplicate": 0,
+        "extracted": 1,
+        "cleaned": 1,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 1,
+        "final": 1
+      }
+    },
+    {
+      "siteId": "gd_talent_card",
+      "siteName": "广东省人才优粤卡",
+      "status": "success",
+      "finalCount": 1,
+      "qualitySummary": {
+        "final_count": 1,
+        "raw": 1,
+        "url_duplicate": 0,
+        "extracted": 1,
+        "cleaned": 1,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 1,
+        "final": 1
+      }
+    },
+    {
+      "siteId": "gd_graduate_policy",
+      "siteName": "高校毕业生就业创业扶持政策清单",
+      "status": "success",
+      "finalCount": 0,
+      "qualitySummary": {
+        "final_count": 0,
+        "raw": 0,
+        "url_duplicate": 0,
+        "extracted": 0,
+        "cleaned": 0,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 0,
+        "final": 0
+      }
+    },
+    {
+      "siteId": "gd_student_aid",
+      "siteName": "广东学生资助政策体系",
+      "status": "success",
+      "finalCount": 1,
+      "qualitySummary": {
+        "final_count": 1,
+        "raw": 1,
+        "url_duplicate": 0,
+        "extracted": 1,
+        "cleaned": 1,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 1,
+        "final": 1
+      }
+    },
+    {
+      "siteId": "gd_hrss_employment",
+      "siteName": "广东就业本省政策",
+      "status": "success",
+      "finalCount": 22,
+      "qualitySummary": {
+        "final_count": 22,
+        "raw": 23,
+        "url_duplicate": 0,
+        "extracted": 23,
+        "cleaned": 23,
+        "empty_content": 1,
+        "short_content": 1,
+        "content_duplicate": 0,
+        "rejected": 1,
+        "warnings": 1,
+        "validated": 22,
+        "final": 22
+      }
+    },
+    {
+      "siteId": "gd_hrss_skill",
+      "siteName": "广东技能人才",
+      "status": "success",
+      "finalCount": 33,
+      "qualitySummary": {
+        "final_count": 33,
+        "raw": 33,
+        "url_duplicate": 0,
+        "extracted": 33,
+        "cleaned": 33,
+        "empty_content": 0,
+        "short_content": 4,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 4,
+        "validated": 33,
+        "final": 33
+      }
+    },
+    {
+      "siteId": "gd_eea_gaokao",
+      "siteName": "广东普通高考",
+      "status": "success",
+      "finalCount": 119,
+      "qualitySummary": {
+        "final_count": 119,
+        "raw": 120,
+        "url_duplicate": 0,
+        "extracted": 120,
+        "cleaned": 120,
+        "empty_content": 1,
+        "short_content": 11,
+        "content_duplicate": 0,
+        "rejected": 1,
+        "warnings": 11,
+        "validated": 119,
+        "final": 119
+      }
+    },
+    {
+      "siteId": "gd_eea_gzxk",
+      "siteName": "广东高中学考",
+      "status": "success",
+      "finalCount": 27,
+      "qualitySummary": {
+        "final_count": 27,
+        "raw": 28,
+        "url_duplicate": 0,
+        "extracted": 28,
+        "cleaned": 28,
+        "empty_content": 1,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 1,
+        "warnings": 0,
+        "validated": 27,
+        "final": 27
+      }
+    },
+    {
+      "siteId": "gd_edu_policy",
+      "siteName": "广东教育政策法规",
+      "status": "success",
+      "finalCount": 0,
+      "qualitySummary": {
+        "final_count": 0,
+        "raw": 0,
+        "url_duplicate": 0,
+        "extracted": 0,
+        "cleaned": 0,
+        "empty_content": 0,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 0,
+        "validated": 0,
+        "final": 0
+      }
+    },
+    {
+      "siteId": "gd_edu_explain",
+      "siteName": "广东教育政策解读",
+      "status": "success",
+      "finalCount": 71,
+      "qualitySummary": {
+        "final_count": 71,
+        "raw": 103,
+        "url_duplicate": 0,
+        "extracted": 103,
+        "cleaned": 103,
+        "empty_content": 32,
+        "short_content": 0,
+        "content_duplicate": 0,
+        "rejected": 32,
+        "warnings": 0,
+        "validated": 71,
+        "final": 71
+      }
+    }
+  ]
+}

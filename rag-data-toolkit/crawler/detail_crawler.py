@@ -10,6 +10,8 @@ from core.schema import make_standard_record
 from crawler.detail_renderer import DetailRenderer
 from crawler.url_normalizer import normalize_url
 from extractor.html_extractor import extract
+from crawler.policy_relation import find_policy_links, find_pdf_attachments
+from extractor.pdf_extractor import extract_pdf_text
 from utils.file_utils import dump_json
 from utils.hash_utils import sha256_text
 from utils.workspace import data_path, relative_data_path
@@ -80,6 +82,30 @@ class DetailCrawler:
         source_name = (ext.source_name or item.source_name or self.cfg.get('site', {}).get('name') or '').strip()
         category = str(self.cfg.get('metadata', {}).get('category') or '')
 
+        # Policy explanation enhancement: follow original policy and PDF attachments
+        attachments = []
+        relations = []
+        if self.cfg.get('metadata', {}).get('document_type') == 'policy_explanation':
+            visited = {normalized}
+            links = find_policy_links(html, normalized)
+            for link in links[:3]:
+                if link in visited:
+                    continue
+                visited.add(link)
+                try:
+                    rr = self.http.get(link)
+                    if rr.text:
+                        rel_ext = extract(rr.text, self.cfg)
+                        rel_pdf = find_pdf_attachments(rr.text, link)
+                        for item_pdf in rel_pdf:
+                            item_pdf['contentText'] = extract_pdf_text(item_pdf['url'])
+                            attachments.append(item_pdf)
+                        if len((rel_ext.content or '').strip()) > len(raw_content.strip()):
+                            raw_content = (raw_content + '\n\n' + rel_ext.content).strip()
+                        relations.append({'type':'original_policy','url':link})
+                except Exception:
+                    pass
+
         standard_raw = make_standard_record(
             source_name=source_name,
             source_url=normalized,
@@ -87,8 +113,10 @@ class DetailCrawler:
             content_text=raw_content,
             category=category,
             publish_time=publish_time,
-            attachments=[],
+            attachments=attachments,
         )
+        if relations:
+            standard_raw['relations'] = relations
         dump_json(data_path(self.root, '01_raw', 'json', f'{doc_id}.json'), standard_raw)
 
         raw = RawDocument(

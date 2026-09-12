@@ -1,0 +1,25 @@
+site:
+  name: 广东学生资助政策体系
+  domain: edu.gd.gov.cn
+crawler:
+  start_mode: detail
+  start_urls:
+    - https://edu.gd.gov.cn/zwgknew/jyzcfg/dfjyzcfg/content/post_3379707.html
+  timeout: 20
+  retries: 3
+  delay: {min: 0.1, max: 0.3}
+pagination: {type: none}
+detail:
+  min_content_chars: 300
+  render_fallback: true
+  title:
+    selectors: ["h1", ".article-title", ".title"]
+  content:
+    selectors: [".article-content", ".content", ".TRS_Editor", "#content"]
+  publish_time:
+    selectors: [".time", ".date", ".publish-time"]
+metadata:
+  category: 教育与人才-学生资助
+  region: 广东
+  document_type: education_policy
+  max_tags: 8

@@ -1,0 +1,25 @@
+site:
+  name: 广东省高校毕业生就业创业扶持政策清单
+  domain: hrss.gd.gov.cn
+crawler:
+  start_mode: detail
+  start_urls:
+    - https://hrss.gd.gov.cn/gkmlpt/content/4/4725/post_4725709.html
+  timeout: 20
+  retries: 3
+  delay: {min: 0.1, max: 0.3}
+pagination: {type: none}
+detail:
+  min_content_chars: 300
+  render_fallback: true
+  title:
+    selectors: ["h1", ".article-title", ".title"]
+  content:
+    selectors: [".article-content", ".content", ".TRS_Editor", "#content"]
+  publish_time:
+    selectors: [".time", ".date", ".publish-time", ".article-info"]
+metadata:
+  category: 教育与人才-高校毕业生就业创业
+  region: 广东
+  document_type: employment_policy
+  max_tags: 8

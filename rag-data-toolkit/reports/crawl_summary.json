@@ -1,6 +1,6 @@
 {
-  "version": "1.7.0",
-  "discovered_urls": 100,
-  "fallback_used": false,
-  "pagination_type": "playwright_click"
+  "version": "1.9.1",
+  "discovered_urls": 1,
+  "fallback_used": true,
+  "pagination_type": "url_template"
 }

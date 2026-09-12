@@ -1,0 +1,91 @@
+# 广东省“教育与人才”比赛 - P0首轮任务
+# 目标：先覆盖高信息密度权威源，再用 benchmarks/100题检查召回缺口。
+task:
+  id: guangdong_education_talent_p0
+  name: 广东省教育与人才-P0首轮
+  description: 政策、考试招生、就业创业、技能人才、2026量化指标优先
+
+sites:
+  - id: gd_work_report_2026
+    name: 2026广东省政府工作报告
+    config: config/sites/gd_seed_work_report_2026.yaml
+    enabled: true
+    priority: 1
+    max_pages: 1
+    max_docs: 5
+
+  - id: gd_talent_card
+    name: 广东省人才优粤卡
+    config: config/sites/gd_seed_talent_card.yaml
+    enabled: true
+    priority: 2
+    max_pages: 1
+    max_docs: 5
+
+  - id: gd_graduate_policy
+    name: 高校毕业生就业创业扶持政策清单
+    config: config/sites/gd_seed_graduate_policy.yaml
+    enabled: true
+    priority: 2
+    max_pages: 1
+    max_docs: 5
+
+  - id: gd_student_aid
+    name: 广东学生资助政策体系
+    config: config/sites/gd_seed_student_aid.yaml
+    enabled: true
+    priority: 3
+    max_pages: 1
+    max_docs: 5
+
+  - id: gd_hrss_employment
+    name: 广东就业本省政策
+    config: config/sites/gd_hrss_employment.yaml
+    enabled: true
+    priority: 4
+    max_pages: 2
+    max_docs: 80
+
+  - id: gd_hrss_skill
+    name: 广东技能人才
+    config: config/sites/gd_hrss_skill.yaml
+    enabled: true
+    priority: 4
+    max_pages: 3
+    max_docs: 120
+
+  - id: gd_eea_gaokao
+    name: 广东普通高考
+    config: config/sites/gd_eea_gaokao.yaml
+    enabled: true
+    priority: 4
+    max_pages: 6
+    max_docs: 180
+
+  - id: gd_eea_gzxk
+    name: 广东高中学考
+    config: config/sites/gd_eea_gzxk.yaml
+    enabled: true
+    priority: 5
+    max_pages: 2
+    max_docs: 60
+
+  - id: gd_edu_policy
+    name: 广东教育政策法规
+    config: config/sites/gd_edu_policy.yaml
+    enabled: true
+    priority: 4
+    max_pages: 5
+    max_docs: 180
+
+  - id: gd_edu_explain
+    name: 广东教育政策解读
+    config: config/sites/gd_edu_explain.yaml
+    enabled: true
+    priority: 5
+    max_pages: 5
+    max_docs: 150
+
+merge:
+  dedup_url: true
+  dedup_content: true

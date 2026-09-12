@@ -15,10 +15,10 @@
         "extracted": 100,
         "cleaned": 100,
         "empty_content": 0,
-        "short_content": 1,
+        "short_content": 2,
         "content_duplicate": 0,
         "rejected": 0,
-        "warnings": 6,
+        "warnings": 7,
         "validated": 100,
         "final": 100
       }
@@ -39,6 +39,26 @@
         "content_duplicate": 0,
         "rejected": 0,
         "warnings": 0,
+        "validated": 100,
+        "final": 100
+      }
+    },
+    {
+      "siteId": "cctv",
+      "siteName": "央视新闻",
+      "status": "success",
+      "finalCount": 100,
+      "qualitySummary": {
+        "final_count": 100,
+        "raw": 100,
+        "url_duplicate": 0,
+        "extracted": 100,
+        "cleaned": 100,
+        "empty_content": 0,
+        "short_content": 79,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 79,
         "validated": 100,
         "final": 100
       }

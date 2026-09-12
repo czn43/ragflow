@@ -29,17 +29,6 @@ sites:
       metadata:
         category: 深圳新闻-深圳新闻网
 
-  - id: cctv
-    name: 央视新闻
-    config: config/sites/cctv.yaml
-    enabled: true
-    priority: 20
-    max_pages: 10
-    max_docs: 100
-    overrides:
-      metadata:
-        category: 央视新闻-央视     
-
 merge:
   dedup_url: true
   dedup_content: true

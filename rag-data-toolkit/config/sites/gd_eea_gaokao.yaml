@@ -1,0 +1,45 @@
+# 广东省教育考试院 - 普通高考
+site:
+  name: 广东省教育考试院-普通高考
+  domain: eea.gd.gov.cn
+crawler:
+  start_mode: list
+  start_urls:
+    - https://eea.gd.gov.cn/ptgk/index.html
+  timeout: 20
+  retries: 3
+  delay: {min: 0.2, max: 0.6}
+list:
+  item_selector: ""
+  link_selector: "a"
+  title_selector: ""
+  date_selector: ""
+pagination:
+  type: url_template
+  template: "https://eea.gd.gov.cn/ptgk/index_{page}.html"
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+detail:
+  min_content_chars: 80
+  render_fallback: true
+  title:
+    selectors: ["h1", ".article-title", ".title"]
+  content:
+    selectors: [".TRS_Editor", ".article-content", ".content", "#content"]
+  publish_time:
+    selectors: [".time", ".date", ".publish-time", ".article-info"]
+    regex_extract: "(\\d{4}-\\d{1,2}-\\d{1,2})"
+  source:
+    selectors: [".source", ".article-source", ".article-info"]
+    regex_extract: "(?:来源|信息来源)[：:]?\\s*([^\\s]+)"
+metadata:
+  category: 教育与人才-高考与招生
+  region: 广东
+  document_type: admissions
+  max_tags: 6
+tag_rules:
+  普通高考: [普通高考, 高校招生, 志愿填报, 投档, 录取]
+  春季高考: [春季高考, 依学考, 3+证书]
+  招生政策: [招生, 报名, 志愿, 录取, 分数线]

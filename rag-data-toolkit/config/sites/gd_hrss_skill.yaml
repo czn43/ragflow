@@ -1,0 +1,45 @@
+# 广东省人社厅 - 广东技能人才评价 / 通知公告
+site:
+  name: 广东省人社厅-技能人才
+  domain: hrss.gd.gov.cn
+crawler:
+  start_mode: list
+  start_urls:
+    - https://hrss.gd.gov.cn/ztzl/gdjnrc/tzgg/
+  timeout: 20
+  retries: 3
+  delay: {min: 0.2, max: 0.6}
+list:
+  item_selector: ""
+  link_selector: "a"
+  title_selector: ""
+  date_selector: ""
+pagination:
+  type: url_template
+  template: "https://hrss.gd.gov.cn/ztzl/gdjnrc/tzgg/index_{page}.html"
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+detail:
+  min_content_chars: 80
+  render_fallback: true
+  title:
+    selectors: ["h1", ".article-title", ".title"]
+  content:
+    selectors: [".TRS_Editor", ".article-content", ".content", "#content"]
+  publish_time:
+    selectors: [".time", ".date", ".publish-time", ".article-info"]
+    regex_extract: "(\\d{4}-\\d{1,2}-\\d{1,2})"
+  source:
+    selectors: [".source", ".article-source", ".article-info"]
+metadata:
+  category: 教育与人才-技能人才
+  region: 广东
+  document_type: skill_policy
+  max_tags: 7
+tag_rules:
+  技能人才: [技能人才, 职业技能, 职业技能等级]
+  特级技师: [特级技师]
+  首席技师: [首席技师]
+  新八级工: [八级工, 学徒工, 初级工, 中级工, 高级工, 技师, 高级技师]

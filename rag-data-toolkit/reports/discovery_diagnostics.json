@@ -1,26 +1,22 @@
 {
-  "mode": "playwright_click",
-  "pages": [
+  "start_pages": [
     {
       "page": 1,
-      "url": "https://www.sztv.com.cn/",
-      "selector_matches": 80,
-      "new_urls": 80,
-      "total_urls": 80,
-      "first_href": "https://www.sztv.com.cn/ysz/zx/tj/83853480.shtml"
-    },
-    {
-      "page": 2,
-      "url": "https://www.sztv.com.cn/",
-      "selector_matches": 80,
-      "new_urls": 20,
-      "total_urls": 100,
-      "first_href": "https://www.sztv.com.cn/ysz/zx/zw/83842968.shtml"
+      "url": "https://edu.gd.gov.cn/zwgknew/zcjd",
+      "status": 200,
+      "error": null,
+      "selector_matches": 0,
+      "fallback_candidates": 23,
+      "mode": "auto_discovery",
+      "total_links": 58,
+      "same_domain_links": 55,
+      "effective_domain": "edu.gd.gov.cn",
+      "detail_detection": {
+        "reason": "forced_list_mode"
+      },
+      "new_urls": 1
     }
   ],
-  "fallback_used": false,
-  "browser_source": "system_chrome",
-  "browser_executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  "prefer_system_chrome": true,
-  "discovered_urls": 100
+  "fallback_used": true,
+  "discovered_urls": 1
 }

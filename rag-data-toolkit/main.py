@@ -27,7 +27,7 @@ from utils.run_utils import reset_run_outputs
 from utils.workspace import data_path, report_path, mark_flat_workspace
 
 ROOT = Path(__file__).resolve().parent
-VERSION = '1.8.0'
+VERSION = '1.9.1'
 
 
 def load_yaml(path: Path) -> dict:

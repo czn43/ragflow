@@ -1,3 +1,23 @@
+# RAG Data Toolkit v1.9 — 广东省“教育与人才”比赛专用包
+
+> 本包基于 v1.8，新增本次比赛的 P0 数据源配置、任务配置和 100 题盲测 Benchmark。
+> **第一次使用请先读：`README_COMPETITION_GD_EDU_TALENT.md`。**
+
+快速开始：
+
+```powershell
+.\setup_windows.bat
+.\run_guangdong_p0.bat
+```
+
+最终合并数据：
+
+```text
+data/final/guangdong_education_talent_p0/combined_final.jsonl
+```
+
+---
+
 # RAG Data Toolkit v1.8
 
 > 面向 RAG / 知识库比赛的数据采集、清洗、标准化与多来源合并工具。

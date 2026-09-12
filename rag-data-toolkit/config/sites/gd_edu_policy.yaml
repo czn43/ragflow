@@ -1,0 +1,71 @@
+# 广东省教育厅 - 教育政策法规
+# 首轮策略：列表页先用 auto discovery，避免在未知 DOM 下写错 selector；分页使用已确认的 index_N.html 结构。
+site:
+  name: 广东省教育厅-教育政策法规
+  domain: edu.gd.gov.cn
+
+crawler:
+  start_mode: list
+  start_urls:
+    - https://edu.gd.gov.cn/zwgknew/jyzcfg/
+  timeout: 20
+  retries: 3
+  delay:
+    min: 0.2
+    max: 0.6
+
+list:
+  item_selector: ""
+  link_selector: "a"
+  title_selector: ""
+  date_selector: ""
+
+pagination:
+  type: url_template
+  template: "https://edu.gd.gov.cn/zwgknew/jyzcfg/index_{page}.html"
+
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors:
+      - "h1"
+      - ".article-title"
+      - ".title"
+  content:
+    selectors:
+      - ".TRS_Editor"
+      - ".article-content"
+      - ".zwxl-con"
+      - "#content"
+  publish_time:
+    selectors:
+      - ".time"
+      - ".date"
+      - ".publish-time"
+      - ".article-info"
+    regex_extract: "(?:时间|发布日期|发布时间)[：:]?\\s*(\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2})"
+  source:
+    selectors:
+      - ".source"
+      - ".article-source"
+      - ".article-info"
+    regex_extract: "(?:资料来源|来源)[：:]?\\s*([^\\s]+)"
+
+metadata:
+  category: 教育与人才-教育政策法规
+  region: 广东
+  document_type: policy
+  max_tags: 6
+
+tag_rules:
+  基础教育: [学前教育, 义务教育, 普通高中, 基础教育]
+  职业教育: [职业教育, 中职, 高职, 普职融通, 三二分段]
+  高等教育: [高等教育, 高校, 本科, 研究生]
+  教师队伍: [教师, 师资, 新强师, 职称]
+  学生资助: [资助, 助学金, 助学贷款, 奖学金]

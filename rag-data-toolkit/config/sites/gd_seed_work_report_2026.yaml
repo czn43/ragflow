@@ -1,0 +1,25 @@
+site:
+  name: 2026年广东省政府工作报告
+  domain: gdjct.gd.gov.cn
+crawler:
+  start_mode: detail
+  start_urls:
+    - https://www.gdjct.gd.gov.cn/ttxw/content/mpost_209009.html
+  timeout: 20
+  retries: 3
+  delay: {min: 0.1, max: 0.3}
+pagination: {type: none}
+detail:
+  min_content_chars: 500
+  render_fallback: true
+  title:
+    selectors: ["h1", ".title"]
+  content:
+    selectors: [".article-content", ".content", ".TRS_Editor", "#content"]
+  publish_time:
+    selectors: [".time", ".date", ".publish-time"]
+metadata:
+  category: 教育与人才-2026量化指标
+  region: 广东
+  document_type: government_report
+  max_tags: 8

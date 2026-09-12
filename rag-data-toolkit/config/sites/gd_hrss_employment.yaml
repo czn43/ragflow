@@ -1,0 +1,46 @@
+# 广东省人社厅 - 广东就业 / 本省政策
+site:
+  name: 广东省人社厅-高校毕业生就业政策
+  domain: hrss.gd.gov.cn
+crawler:
+  start_mode: list
+  start_urls:
+    - https://hrss.gd.gov.cn/jyzl/zcfg/bszc/
+  timeout: 20
+  retries: 3
+  delay: {min: 0.2, max: 0.6}
+list:
+  item_selector: ""
+  link_selector: "a"
+  title_selector: ""
+  date_selector: ""
+pagination:
+  type: url_template
+  template: "https://hrss.gd.gov.cn/jyzl/zcfg/bszc/index_{page}.html"
+discovery:
+  min_score: 3
+  detail_url_score: 4
+  allow_external: false
+detail:
+  min_content_chars: 100
+  render_fallback: true
+  title:
+    selectors: ["h1", ".article-title", ".title"]
+  content:
+    selectors: [".TRS_Editor", ".article-content", ".content", "#content"]
+  publish_time:
+    selectors: [".time", ".date", ".publish-time", ".article-info"]
+    regex_extract: "(\\d{4}-\\d{1,2}-\\d{1,2})"
+  source:
+    selectors: [".source", ".article-source", ".article-info"]
+    regex_extract: "(?:信息来源|来源)[：:]?\\s*([^\\s]+)"
+metadata:
+  category: 教育与人才-高校毕业生就业创业
+  region: 广东
+  document_type: employment_policy
+  max_tags: 7
+tag_rules:
+  就业见习: [就业见习, 见习岗位]
+  高校毕业生: [高校毕业生, 毕业生]
+  补贴: [补贴, 社保补贴, 求职补贴, 基层岗位补贴]
+  创业: [创业, 创业担保贷款, 创业租金]

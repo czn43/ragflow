@@ -2,8 +2,8 @@
   "version": "1.8.0",
   "taskId": "shenzhen_news_training",
   "taskName": "深圳新闻双来源练习",
-  "siteCountConfigured": 2,
-  "siteCountMerged": 2,
+  "siteCountConfigured": 3,
+  "siteCountMerged": 3,
   "sites": [
     {
       "siteId": "sztv",
@@ -18,10 +18,10 @@
         "extracted": 100,
         "cleaned": 100,
         "empty_content": 0,
-        "short_content": 1,
+        "short_content": 2,
         "content_duplicate": 0,
         "rejected": 0,
-        "warnings": 6,
+        "warnings": 7,
         "validated": 100,
         "final": 100
       },
@@ -48,22 +48,46 @@
         "final": 100
       },
       "finalFile": "data/runs/shenzhen_news_training/sznews/06_final/final.jsonl"
+    },
+    {
+      "siteId": "cctv",
+      "siteName": "央视新闻",
+      "priority": 20,
+      "status": "ready",
+      "finalCount": 100,
+      "qualitySummary": {
+        "final_count": 100,
+        "raw": 100,
+        "url_duplicate": 0,
+        "extracted": 100,
+        "cleaned": 100,
+        "empty_content": 0,
+        "short_content": 79,
+        "content_duplicate": 0,
+        "rejected": 0,
+        "warnings": 79,
+        "validated": 100,
+        "final": 100
+      },
+      "finalFile": "data/runs/shenzhen_news_training/cctv/06_final/final.jsonl"
     }
   ],
   "merge": {
     "dedupUrl": true,
     "dedupContent": true,
-    "input_count": 200,
-    "final_count": 200,
+    "input_count": 300,
+    "final_count": 300,
     "duplicate_count": 0,
     "duplicate_reasons": {},
     "per_site_input": {
       "sztv": 100,
-      "sznews": 100
+      "sznews": 100,
+      "cctv": 100
     },
     "per_site_kept_after_global_dedup": {
       "sztv": 100,
-      "sznews": 100
+      "sznews": 100,
+      "cctv": 100
     }
   },
   "outputs": {
